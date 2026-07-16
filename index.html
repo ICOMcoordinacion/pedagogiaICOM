@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Índice - Pedagogía ICOM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .search-box {
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1em;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #764ba2;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .folders-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .folder {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .folder:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .folder-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .folder-header:hover {
+            opacity: 0.9;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .folder.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .folder-files {
+            padding: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .folder.collapsed .folder-files {
+            display: none;
+        }
+
+        .file-item {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-item:hover {
+            background: #f0f7ff;
+            transform: translateX(5px);
+            border-left-color: #764ba2;
+        }
+
+        .file-name {
+            flex: 1;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .file-icon {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .open-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.3s;
+        }
+
+        .open-btn:hover {
+            background: #764ba2;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .folders-container {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Índice Pedagogía ICOM</h1>
+            <p>Navegador inteligente de recursos educativos</p>
+        </header>
+
+        <div class="content">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre de archivo o carpeta...">
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h3 id="totalFiles">-</h3>
+                    <p>Archivos HTML</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="totalFolders">-</h3>
+                    <p>Carpetas</p>
+                </div>
+            </div>
+
+            <div id="errorContainer"></div>
+
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Cargando archivos...</p>
+            </div>
+
+            <div id="foldersContainer" class="folders-container" style="display: none;"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                No se encontraron resultados
+            </div>
+        </div>
+
+        <footer>
+            <p>Repositorio: <a href="https://github.com/ICOMcoordinacion/pedagogiaICOM" target="_blank">ICOMcoordinacion/pedagogiaICOM</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const API_BASE = 'https://api.github.com/repos/ICOMcoordinacion/pedagogiaICOM';
+        const RAW_BASE = 'https://raw.githubusercontent.com/ICOMcoordinacion/pedagogiaICOM/main';
+        const htmlFiles = {};
+        let allFiles = [];
+
+        // Función para obtener archivos recursivamente
+        async function getHtmlFiles(path = '') {
+            try {
+                const url = `${API_BASE}/contents${path ? '/' + path : ''}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+
+                const items = await response.json();
+
+                for (const item of items) {
+                    if (item.type === 'file' && item.name.endsWith('.html')) {
+                        const folder = path || 'Raíz';
+                        if (!htmlFiles[folder]) {
+                            htmlFiles[folder] = [];
+                        }
+                        htmlFiles[folder].push({
+                            name: item.name,
+                            path: item.path,
+                            url: item.html_url
+                        });
+                        allFiles.push({
+                            folder: folder,
+                            name: item.name,
+                            path: item.path,
+                            url: item.html_url
+                        });
+                    } else if (item.type === 'dir') {
+                        await getHtmlFiles(item.path);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching files:', error);
+            }
+        }
+
+        // Renderizar carpetas y archivos
+        function renderFolders(filesToRender = htmlFiles) {
+            const container = document.getElementById('foldersContainer');
+            container.innerHTML = '';
+
+            let hasFiles = false;
+
+            for (const [folder, files] of Object.entries(filesToRender)) {
+                if (files.length === 0) continue;
+                hasFiles = true;
+
+                const folderDiv = document.createElement('div');
+                folderDiv.className = 'folder';
+                folderDiv.innerHTML = `
+                    <div class="folder-header">
+                        <span>📁 ${folder}</span>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="folder-files">
+                        ${files.map(file => `
+                            <div class="file-item">
+                                <div class="file-name">
+                                    <span class="file-icon">📄</span>${file.name}
+                                </div>
+                                <button class="open-btn" onclick="window.open('${RAW_BASE}/${file.path}', '_blank')">
+                                    Abrir
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                folderDiv.querySelector('.folder-header').addEventListener('click', function() {
+                    folderDiv.classList.toggle('collapsed');
+                });
+
+                container.appendChild(folderDiv);
+            }
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('foldersContainer').style.display = hasFiles ? 'grid' : 'none';
+            document.getElementById('noResults').style.display = hasFiles ? 'none' : 'block';
+
+            // Actualizar estadísticas
+            document.getElementById('totalFolders').textContent = Object.keys(filesToRender).filter(f => Object.keys(filesToRender[f]).length > 0).length;
+            document.getElementById('totalFiles').textContent = Object.values(filesToRender).reduce((sum, files) => sum + files.length, 0);
+        }
+
+        // Búsqueda
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+
+            if (!query) {
+                renderFolders(htmlFiles);
+                return;
+            }
+
+            const filtered = {};
+            for (const file of allFiles) {
+                if (file.name.toLowerCase().includes(query) || file.folder.toLowerCase().includes(query)) {
+                    if (!filtered[file.folder]) {
+                        filtered[file.folder] = [];
+                    }
+                    filtered[file.folder].push({
+                        name: file.name,
+                        path: file.path,
+                        url: file.url
+                    });
+                }
+            }
+
+            renderFolders(filtered);
+        });
+
+        // Inicializar
+        getHtmlFiles().then(() => {
+            renderFolders();
+        });
+    </script>
+</body>
+</html>
