@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Proceso de Investigación Científica — Metodología de la Investigación I</title>
+
+<!-- Favicon (logo ICOM) -->
+<link rel="icon" href="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" type="image/jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6F9;
+  --ink:#1A2634;
+  --ink-light:#4A5A6A;
+  --line:#C8D0D8;
+  --white:#FFFFFF;
+  --primary:#1E3A5F;
+  --primary-light:#2B5A8C;
+  --primary-soft:#E8EDF3;
+  --accent:#1A5F7A;
+  --shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;}
+h1,h2,h3,h4{font-weight:600;}
+.mono{font-family:'DM Mono',monospace;}
+.layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{background:var(--white);border-right:1px solid var(--line);padding:2.5rem 1.75rem;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:space-between;}
+.side-logo{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;}
+.side-logo img{width:40px;height:40px;object-fit:contain;border-radius:4px;border:1px solid var(--line);}
+.side-logo span{font-size:0.75rem;font-weight:600;color:var(--primary);letter-spacing:0.05em;}
+.side-label{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:.9rem;font-weight:500;}
+.side-title{font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:.75rem;color:var(--ink);}
+.side-week{display:inline-block;font-family:'DM Mono',monospace;font-size:.72rem;border:1px solid var(--primary);color:var(--primary);background:var(--primary-soft);padding:.25rem .65rem;margin-bottom:1.5rem;}
+.side-nav{display:flex;flex-direction:column;gap:.2rem;margin-top:2rem;}
+.side-item{background:none;border:none;color:var(--ink-light);text-align:left;padding:.8rem .9rem;font-size:.88rem;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:.7rem;transition:background .15s,color .15s;}
+.side-item:hover{background:var(--primary-soft);color:var(--primary);}
+.side-item.active{color:var(--primary);font-weight:600;background:var(--primary-soft);}
+.side-dot{width:6px;height:6px;border-radius:0;background:var(--line);flex-shrink:0;transition:background .2s;}
+.side-item.active .side-dot{background:var(--primary);}
+.side-foot{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--ink-light);opacity:.6;}
+
+/* CONTENT */
+.content{padding:3.5rem 4rem;width:100%;}
+.content > .tab-panel{max-width:1080px;margin-left:auto;margin-right:auto;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.lead{font-size:1.02rem;color:var(--ink-light);font-weight:400;margin-bottom:2.5rem;max-width:800px;border-left:3px solid var(--primary);padding-left:1.2rem;}
+.block{margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
+.block h2{font-size:1.4rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;color:var(--ink);}
+.block .num{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--primary);font-weight:500;background:var(--primary-soft);padding:.2rem .6rem;}
+.block h3{font-size:1.05rem;font-weight:600;margin:1.5rem 0 .75rem;color:var(--ink);}
+.block p{font-size:.9rem;color:var(--ink-light);font-weight:400;margin-bottom:1rem;max-width:720px;}
+
+.quote-block{background:var(--white);border-left:3px solid var(--primary);padding:1.4rem 1.6rem;font-size:.98rem;font-weight:400;font-style:italic;margin:1.25rem 0;color:var(--ink);}
+.example-tag{display:block;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--ink);background:var(--white);border:1px solid var(--line);padding:.9rem 1.1rem;margin-top:1rem;border-left:3px solid var(--accent);}
+.example-tag b{font-weight:600;color:var(--accent);}
+
+.def-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1.25rem;}
+.def-card{background:var(--white);padding:1.4rem;}
+.def-card h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem;color:var(--primary);}
+.def-card p{font-size:.8rem;color:var(--ink-light);}
+
+.type-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.25rem;}
+.type-col h4{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:.75rem;}
+.type-item{background:var(--white);border:1px solid var(--line);padding:1rem 1.1rem;margin-bottom:.6rem;border-left:3px solid var(--accent);}
+.type-item b{display:block;font-size:.88rem;margin-bottom:.2rem;}
+.type-item span{font-size:.8rem;color:var(--ink-light);}
+
+.numbered-list{counter-reset:step;margin-top:1.25rem;}
+.numbered-item{display:flex;gap:1rem;padding:1rem 0;border-top:1px solid var(--line);}
+.numbered-item:first-child{border-top:none;}
+.numbered-item::before{counter-increment:step;content:counter(step, decimal-leading-zero);font-family:'DM Mono',monospace;font-size:.78rem;color:var(--primary);flex-shrink:0;padding-top:.1rem;background:var(--primary-soft);padding:.1rem .5rem;}
+.numbered-item div b{display:block;font-size:.88rem;margin-bottom:.2rem;}
+.numbered-item div span{font-size:.8rem;color:var(--ink-light);}
+
+/* ACTIVITIES */
+.activity-box{background:var(--white);border:1px solid var(--line);padding:1.75rem;margin-bottom:1.5rem;}
+.activity-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem;}
+.activity-label::before{content:'';width:16px;height:1px;background:var(--primary);}
+
+.flash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;}
+.flash{perspective:1000px;height:150px;cursor:pointer;}
+.flash-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;}
+.flash.flipped .flash-inner{transform:rotateY(180deg);}
+.flash-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;padding:1.1rem;text-align:center;border:1px solid var(--line);background:var(--white);}
+.flash-front{background:var(--primary);color:#fff;font-weight:500;font-size:.86rem;border:none;}
+.flash-back{background:var(--white);color:var(--ink);transform:rotateY(180deg);font-size:.78rem;font-weight:400;}
+
+.judge-list{display:flex;flex-direction:column;gap:.85rem;}
+.judge-item{background:var(--bg);border:1px solid var(--line);padding:1rem 1.1rem;}
+.judge-item p{font-size:.85rem;margin-bottom:.7rem;}
+.judge-btns{display:flex;gap:.6rem;}
+.judge-btn{flex:1;background:var(--white);border:1px solid var(--line);padding:.55rem;font-size:.78rem;font-weight:500;color:var(--ink-light);cursor:pointer;}
+.judge-btn:hover{background:var(--primary-soft);}
+.judge-btn.right-fb{background:var(--primary);border-color:var(--primary);color:white;font-weight:700;}
+.judge-btn.wrong-fb{background:#D32F2F;border-color:#D32F2F;color:white;}
+
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.match-col{display:flex;flex-direction:column;gap:.6rem;}
+.match-item{background:var(--bg);border:1px solid var(--line);padding:.85rem 1rem;font-size:.82rem;cursor:pointer;}
+.match-item.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+.match-item.matched{background:#E8EDF3;border-color:var(--primary);color:var(--ink);cursor:default;}
+.match-item.wrong{background:#FCE4EC;border-color:#D32F2F;}
+
+.select-classifier{display:flex;flex-direction:column;gap:.75rem;}
+.select-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bg);border:1px solid var(--line);padding:.9rem 1.1rem;flex-wrap:wrap;}
+.select-row p{font-size:.85rem;flex:1;min-width:220px;}
+.select-row select{padding:.5rem;border:1px solid var(--line);font-family:'DM Sans',sans-serif;font-size:.8rem;background:var(--white);}
+
+.check-btn{background:var(--primary);color:#fff;border:none;padding:.75rem 1.75rem;font-size:.82rem;font-weight:500;cursor:pointer;transition:background .2s;}
+.check-btn:hover{background:var(--primary-light);}
+.result-msg{margin-top:1rem;font-size:.85rem;font-weight:500;padding:.7rem 1rem;display:none;}
+.result-msg.show{display:block;}
+.result-msg.ok{background:#E8EDF3;color:var(--primary);border:1px solid var(--primary);}
+.result-msg.bad{background:#FCE4EC;color:#B71C1C;border:1px solid #D32F2F;}
+
+.manual-box{background:var(--primary);color:#fff;padding:2rem;}
+.manual-box h3{font-size:1.1rem;font-weight:500;margin-bottom:1rem;color:#fff;}
+.manual-box ol{padding-left:1.25rem;display:flex;flex-direction:column;gap:.5rem;}
+.manual-box li{font-size:.85rem;font-weight:300;opacity:.95;}
+
+/* QUIZ */
+.exam-q{background:var(--white);border:1px solid var(--line);padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.exam-q p{font-size:.88rem;font-weight:500;margin-bottom:.75rem;}
+.exam-q label{display:flex;align-items:center;gap:.6rem;font-size:.83rem;color:var(--ink-light);padding:.4rem 0;cursor:pointer;}
+.exam-q input{accent-color:var(--primary);}
+.exam-q.correct{border-color:var(--primary);background:#F0F4F8;}
+.exam-q.incorrect{border-color:#D32F2F;background:#FDF2F2;}
+.exam-result{margin-top:1.5rem;padding:1.5rem;background:var(--primary);color:#fff;display:none;}
+.exam-result.show{display:block;}
+.exam-result h3{font-size:1.3rem;font-weight:600;margin-bottom:.5rem;color:#fff;}
+.exam-result p{font-size:.86rem;opacity:.9;color:#fff;}
+.col-match-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem 0;font-size:.83rem;}
+.col-match-row select{padding:.4rem;border:1px solid var(--line);font-family:'DM Sans',sans-serif;background:var(--white);flex:1;min-width:0;}
+
+/* RESULTADOS (corregido) */
+.name-gate{
+  background:var(--white);
+  border:1px solid var(--line);
+  padding:1.25rem 1.5rem;           /* mismo padding que .exam-q */
+  text-align:center;
+  margin-bottom:2rem;
+  /* se eliminó max-width:420px para que ocupe todo el ancho */
+}
+.name-gate h3{margin-bottom:.75rem;color:var(--primary);}
+.name-gate p{font-size:.85rem;color:var(--ink-light);margin-bottom:1.25rem;}
+.name-gate input{width:100%;padding:.75rem 1rem;border:1px solid var(--line);font-family:'DM Sans',sans-serif;font-size:.88rem;margin-bottom:1rem;}
+.name-gate input:focus{border-color:var(--primary);outline:none;}
+
+.results-header{
+  background:var(--primary);
+  color:#fff;
+  padding:1.25rem 1.5rem;           /* mismo padding que .exam-q */
+  margin-bottom:1.5rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+.results-header h3{color:#fff;font-size:1.15rem;}
+.results-header span{font-size:.78rem;opacity:.8;}
+
+.activity-group{
+  background:var(--white);
+  border:1px solid var(--line);
+  padding:1.25rem 1.5rem;           /* mismo padding que .exam-q */
+  margin-bottom:1.25rem;
+  overflow:hidden;
+}
+.activity-group-header{
+  background:var(--bg);
+  color:var(--ink);
+  font-size:.83rem;
+  font-weight:600;
+  padding:.85rem 1.25rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  margin:-1.25rem -1.5rem 0 -1.5rem; /* compensa padding del grupo */
+}
+.activity-group-header span{
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;
+  font-weight:500;
+  background:var(--primary-soft);
+  color:var(--primary);
+  padding:.2rem .6rem;
+}
+.result-row{
+  padding:.7rem 0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+.result-row:last-child{
+  border-bottom:none;
+}
+.result-row .r-detail{font-size:.83rem;color:var(--ink);}
+.result-row .r-meta{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink-light);white-space:nowrap;}
+
+.empty-state{font-size:.86rem;color:var(--ink-light);padding:2rem;text-align:center;background:var(--white);border:1px dashed var(--line);}
+
+/* MOBILE HEADER con logo */
+.mobile-header{display:none;background:var(--white);padding:0.8rem 1.25rem;border-bottom:1px solid var(--line);align-items:center;gap:0.8rem;flex-wrap:wrap;}
+.mobile-header .mobile-logo{display:flex;align-items:center;gap:0.6rem;}
+.mobile-header .mobile-logo img{width:32px;height:32px;object-fit:contain;border-radius:4px;border:1px solid var(--line);}
+.mobile-header .mobile-title{font-size:1rem;font-weight:700;color:var(--ink);line-height:1.2;}
+.mobile-header .mobile-week{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--primary);background:var(--primary-soft);display:inline-block;padding:.1rem .5rem;border:1px solid var(--primary);}
+.mobile-header .mobile-sub{font-size:.65rem;color:var(--ink-light);width:100%;}
+
+/* MOBILE TABS - con grid para igualar anchos */
+.mobile-tabs{display:none;position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--line);z-index:50;}
+.mobile-tabs-inner{display:grid;grid-template-columns:repeat(4, 1fr);}
+.mtab{background:none;border:none;color:var(--ink-light);padding:0.8rem 0.2rem;font-size:0.75rem;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:center;word-break:break-word;border-bottom:2px solid transparent;transition:border-color .15s, color .15s;}
+.mtab.active{color:var(--primary);font-weight:600;border-bottom-color:var(--primary);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .mobile-header{display:flex;}
+  .mobile-tabs{display:block;}
+  .content{padding:1.5rem 0.8rem;}
+  .exam-q{padding:1rem;}
+  .exam-q label{font-size:.8rem;gap:.4rem;}
+  .col-match-row{flex-direction:column;align-items:stretch;gap:.4rem;}
+  .col-match-row select{width:100%;padding:.5rem;}
+  .type-cols,.match-grid{grid-template-columns:1fr;}
+  .def-grid{grid-template-columns:1fr;}
+  .select-row{flex-direction:column;align-items:stretch;}
+  .select-row select{width:100%;}
+  .flash-grid{grid-template-columns:1fr 1fr;}
+  .judge-btns{flex-direction:column;}
+  .judge-btn{padding:.7rem;}
+  .results-header{padding:1.2rem;}
+  .name-gate{padding:1.5rem;max-width:100%;}
+  .activity-group{padding:1rem;}
+  .activity-group-header{margin:-1rem -1rem 0 -1rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-top">
+      <!-- Logo en sidebar -->
+      <div class="side-logo">
+        <img src="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" alt="ICOM">
+        <span>ICOM</span>
+      </div>
+      <p class="side-label">Metodología de la Investigación I</p>
+      <h1 class="side-title">El Proceso de<br>Investigación<br>Científica</h1>
+      <span class="side-week mono">Semana 2</span>
+    </div>
+    <nav class="side-nav">
+      <button class="side-item active" data-tab="sintesis"><span class="side-dot"></span>Síntesis</button>
+      <button class="side-item" data-tab="actividades"><span class="side-dot"></span>Actividades</button>
+      <button class="side-item" data-tab="cuestionario"><span class="side-dot"></span>Cuestionario</button>
+      <button class="side-item" data-tab="resultados"><span class="side-dot"></span>Resultados</button>
+    </nav>
+    <p class="side-foot mono">César Delgado</p>
+  </aside>
+
+  <!-- ENCABEZADO MÓVIL con logo -->
+  <div class="mobile-header">
+    <div class="mobile-logo">
+      <img src="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" alt="ICOM">
+      <span class="mobile-title">El Proceso de Investigación Científica</span>
+    </div>
+    <span class="mobile-week mono">Semana 2</span>
+    <div class="mobile-sub">Metodología de la Investigación I</div>
+  </div>
+
+  <!-- PESTAÑAS MÓVIL con grid -->
+  <nav class="mobile-tabs">
+    <div class="mobile-tabs-inner">
+      <button class="mtab active" data-tab="sintesis">Síntesis</button>
+      <button class="mtab" data-tab="actividades">Actividades</button>
+      <button class="mtab" data-tab="cuestionario">Cuestionario</button>
+      <button class="mtab" data-tab="resultados">Resultados</button>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <!-- SÍNTESIS -->
+    <section class="tab-panel active" id="tab-sintesis">
+      <p class="lead">El proceso de investigación científica requiere delimitar con precisión el problema, definir objetivos claros y aplicar la observación de forma sistemática y objetiva.</p>
+
+      <div class="block">
+        <h2><span class="num">01</span>Delimitación del problema. Objeto de estudio</h2>
+        <p>La delimitación del problema es uno de los pasos iniciales en el proceso de investigación científica. Consiste en identificar y establecer los límites del fenómeno o situación que será objeto de análisis.</p>
+        <div class="def-grid">
+          <div class="def-card"><h4>Relevancia del problema</h4><p>Justificar por qué es importante investigarlo, considerando su impacto social, económico, cultural o científico.</p></div>
+          <div class="def-card"><h4>Descripción del problema</h4><p>Identificar una situación específica que genera incertidumbre o que requiere una solución.</p></div>
+          <div class="def-card"><h4>Objeto de estudio</h4><p>Precisar qué aspectos concretos del problema serán investigados, limitando la extensión geográfica, temporal y conceptual del tema.</p></div>
+        </div>
+        <div class="example-tag"><b>Ejemplo:</b> si el problema está relacionado con la deserción escolar, el objeto de estudio podría ser: "Factores socioeconómicos que influyen en la deserción escolar en nivel secundaria en la región X durante el año Y".</div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">02</span>Objetivo de investigación</h2>
+        <p>Los objetivos de la investigación definen con claridad qué se desea alcanzar al finalizar el estudio.</p>
+        <div class="type-cols">
+          <div class="type-col">
+            <h4>Objetivo general</h4>
+            <div class="type-item"><span>Resume de manera amplia el propósito principal de la investigación.</span></div>
+            <div class="example-tag">"Analizar los factores que influyen en la deserción escolar en nivel secundaria".</div>
+          </div>
+          <div class="type-col">
+            <h4>Objetivos específicos</h4>
+            <div class="type-item"><span>Detallan las metas particulares que conducen al logro del objetivo general.</span></div>
+            <div class="example-tag">Identificar las características socioeconómicas de los estudiantes que abandonaron la escuela. · Evaluar el impacto de las políticas educativas actuales sobre la retención escolar.</div>
+          </div>
+        </div>
+        <div class="quote-block">Un objetivo bien formulado debe ser claro, específico, medible, alcanzable, relevante y limitado en el tiempo (SMART).</div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">03</span>Observación científica</h2>
+        <p>La observación científica es un método fundamental en la investigación. Permite recopilar información directamente del objeto de estudio mediante el uso de los sentidos o herramientas específicas. Se caracteriza por ser sistemática, objetiva y controlada.</p>
+
+        <h3>Características de la observación científica</h3>
+        <div class="def-grid">
+          <div class="def-card"><h4>Objetividad</h4><p>Los datos recopilados deben ser independientes de las percepciones o prejuicios del investigador.</p></div>
+          <div class="def-card"><h4>Sistematicidad</h4><p>La observación sigue un plan definido, con pasos claros y herramientas adecuadas.</p></div>
+          <div class="def-card"><h4>Registro</h4><p>Los datos se documentan cuidadosamente para garantizar su análisis posterior.</p></div>
+          <div class="def-card"><h4>Repetibilidad</h4><p>Los resultados deben ser verificables por otros investigadores.</p></div>
+        </div>
+
+        <h3>Tipos de observación</h3>
+        <div class="type-cols">
+          <div class="type-col">
+            <h4>Según el grado de control</h4>
+            <div class="type-item"><b>Estructurada</b><span>Sigue un esquema predefinido, como en estudios experimentales.</span></div>
+            <div class="type-item"><b>No estructurada</b><span>Explora sin un esquema fijo, más común en estudios exploratorios.</span></div>
+          </div>
+          <div class="type-col">
+            <h4>Según el contexto</h4>
+            <div class="type-item"><b>Naturalista</b><span>Se realiza en el entorno natural del fenómeno.</span></div>
+            <div class="type-item"><b>Laboratorio</b><span>Se lleva a cabo en condiciones controladas.</span></div>
+          </div>
+        </div>
+        <div class="type-cols" style="margin-top:0;">
+          <div class="type-col">
+            <h4>Según la participación del observador</h4>
+            <div class="type-item"><b>Participante</b><span>El investigador forma parte del grupo observado.</span></div>
+            <div class="type-item"><b>No participante</b><span>El investigador no interactúa con el grupo, observa desde fuera.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">03.1</span>Relación sujeto-objeto de conocimiento</h2>
+        <p>En el proceso de investigación, la relación entre el sujeto (investigador) y el objeto de conocimiento (tema o fenómeno estudiado) es clave. Esta relación implica un equilibrio entre:</p>
+        <div class="def-grid">
+          <div class="def-card"><h4>Objetividad</h4><p>El sujeto debe evitar que sus ideas o emociones influyan en la percepción del objeto.</p></div>
+          <div class="def-card"><h4>Implicación</h4><p>El investigador no solo analiza el objeto, sino que también lo interpreta dentro de un contexto específico.</p></div>
+          <div class="def-card"><h4>Interacción</h4><p>En investigaciones sociales, la interacción entre sujeto y objeto puede ser dinámica y bidireccional.</p></div>
+        </div>
+        <div class="example-tag"><b>Ejemplo:</b> en la investigación etnográfica, el investigador observa y participa en el entorno del objeto de estudio, pero también debe reflexionar sobre cómo su presencia afecta los datos recopilados.</div>
+      </div>
+
+      <div class="block" style="border-bottom:none;">
+        <h2><span class="num">03.2</span>Diseño de observación y registro</h2>
+        <p>El diseño de la observación y registro implica planificar cuidadosamente cómo se recopilarán los datos observados.</p>
+        <div class="numbered-list">
+          <div class="numbered-item"><div><b>Selección de herramientas</b><span>Cuadernos de campo, grabaciones de audio o video, plantillas de registro estructurado.</span></div></div>
+          <div class="numbered-item"><div><b>Definición del propósito</b><span>¿Qué se quiere observar y por qué?</span></div></div>
+          <div class="numbered-item"><div><b>Momentos de la observación</b><span>Frecuencia, duración y lugar.</span></div></div>
+          <div class="numbered-item"><div><b>Aspectos clave</b><span>Definir qué características o variables serán observadas.</span></div></div>
+          <div class="numbered-item"><div><b>Registro de datos</b><span>Uso de herramientas tecnológicas o manuales para documentar los datos con precisión, además de la codificación de datos para facilitar el análisis.</span></div></div>
+        </div>
+        <div class="example-tag"><b>Ejemplo:</b> en un estudio sobre el comportamiento de los consumidores en un supermercado, el diseño podría incluir observaciones de patrones de compra en horarios específicos, registrando variables como edad, género y tiempo promedio en el establecimiento.</div>
+      </div>
+    </section>
+
+    <!-- ACTIVIDADES -->
+    <section class="tab-panel" id="tab-actividades">
+      <p class="lead">Repasa los conceptos clave de forma autónoma con estas actividades.</p>
+
+      <div class="activity-box">
+        <div class="activity-label">Flashcards · da clic para voltear</div>
+        <div class="flash-grid">
+          <div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner">
+            <div class="flash-face flash-front">¿Qué elementos incluye la delimitación del problema?</div>
+            <div class="flash-face flash-back">Relevancia del problema, descripción del problema y objeto de estudio.</div>
+          </div></div>
+          <div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner">
+            <div class="flash-face flash-front">¿Qué significa que un objetivo sea SMART?</div>
+            <div class="flash-face flash-back">Claro, específico, medible, alcanzable, relevante y limitado en el tiempo.</div>
+          </div></div>
+          <div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner">
+            <div class="flash-face flash-front">¿Cuáles son las características de la observación científica?</div>
+            <div class="flash-face flash-back">Objetividad, sistematicidad, registro y repetibilidad.</div>
+          </div></div>
+          <div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner">
+            <div class="flash-face flash-front">¿Qué implica la relación sujeto-objeto de conocimiento?</div>
+            <div class="flash-face flash-back">Un equilibrio entre objetividad, implicación e interacción del investigador con lo que estudia.</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="activity-box">
+        <div class="activity-label">Clasifica cada ejemplo según el tipo de observación que representa</div>
+        <div class="select-classifier" id="selectBox">
+          <div class="select-row" data-correct="participante"><p>Un investigador se une temporalmente a una comunidad indígena para vivir su cotidianidad.</p>
+            <select><option value="">Selecciona...</option><option value="participante">Participante</option><option value="no-participante">No participante</option><option value="estructurada">Estructurada</option><option value="laboratorio">Laboratorio</option></select></div>
+          <div class="select-row" data-correct="laboratorio"><p>Se estudia el comportamiento bajo condiciones controladas en un cubículo con cámara de Gesell.</p>
+            <select><option value="">Selecciona...</option><option value="participante">Participante</option><option value="no-participante">No participante</option><option value="estructurada">Estructurada</option><option value="laboratorio">Laboratorio</option></select></div>
+          <div class="select-row" data-correct="estructurada"><p>Se sigue una lista de cotejo predefinida para registrar conductas específicas en un experimento.</p>
+            <select><option value="">Selecciona...</option><option value="participante">Participante</option><option value="no-participante">No participante</option><option value="estructurada">Estructurada</option><option value="laboratorio">Laboratorio</option></select></div>
+          <div class="select-row" data-correct="no-participante"><p>El investigador observa desde fuera del aula sin interactuar con los alumnos.</p>
+            <select><option value="">Selecciona...</option><option value="participante">Participante</option><option value="no-participante">No participante</option><option value="estructurada">Estructurada</option><option value="laboratorio">Laboratorio</option></select></div>
+        </div>
+        <button class="check-btn" onclick="checkSelectClasificador()">Verificar respuestas</button>
+        <div class="result-msg" id="selectResult"></div>
+      </div>
+
+      <div class="activity-box">
+        <div class="activity-label">Verdadero o falso · responde rápido</div>
+        <div class="judge-list" id="vfBox">
+          <div class="judge-item" data-correct="verdadero"><p>El objeto de estudio limita la extensión geográfica, temporal y conceptual del tema.</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="verdadero">Verdadero</button><button class="judge-btn" data-val="falso">Falso</button></div></div>
+          <div class="judge-item" data-correct="falso"><p>Los objetivos específicos son opcionales y no se relacionan con el objetivo general.</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="verdadero">Verdadero</button><button class="judge-btn" data-val="falso">Falso</button></div></div>
+          <div class="judge-item" data-correct="verdadero"><p>La observación científica debe ser sistemática, objetiva y controlada.</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="verdadero">Verdadero</button><button class="judge-btn" data-val="falso">Falso</button></div></div>
+          <div class="judge-item" data-correct="falso"><p>En la observación no participante, el investigador forma parte activa del grupo observado.</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="verdadero">Verdadero</button><button class="judge-btn" data-val="falso">Falso</button></div></div>
+        </div>
+        <div class="result-msg" id="vfResult"></div>
+      </div>
+
+      <div class="activity-box">
+        <div class="activity-label">Relaciona el concepto con su definición · da clic en un concepto y luego en su pareja</div>
+        <div class="match-grid">
+          <div class="match-col" id="matchTerms">
+            <div class="match-item" data-pair="1">Objetividad</div>
+            <div class="match-item" data-pair="2">Sistematicidad</div>
+            <div class="match-item" data-pair="3">Repetibilidad</div>
+            <div class="match-item" data-pair="4">Implicación</div>
+          </div>
+          <div class="match-col" id="matchDefs">
+            <div class="match-item" data-pair="3">Los resultados deben ser verificables por otros investigadores.</div>
+            <div class="match-item" data-pair="1">Los datos deben ser independientes de las percepciones del investigador.</div>
+            <div class="match-item" data-pair="4">El investigador interpreta el objeto dentro de un contexto específico.</div>
+            <div class="match-item" data-pair="2">La observación sigue un plan definido con pasos y herramientas claras.</div>
+          </div>
+        </div>
+        <div class="result-msg" id="matchResult"></div>
+      </div>
+
+      <div class="activity-box">
+        <div class="activity-label">Para cada elemento, decide si corresponde al objetivo general o a un objetivo específico</div>
+        <div class="judge-list" id="objBox">
+          <div class="judge-item" data-correct="general"><p>"Analizar los factores que influyen en la deserción escolar en nivel secundaria."</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="general">Objetivo general</button><button class="judge-btn" data-val="especifico">Objetivo específico</button></div></div>
+          <div class="judge-item" data-correct="especifico"><p>"Identificar las características socioeconómicas de los estudiantes que abandonaron la escuela."</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="general">Objetivo general</button><button class="judge-btn" data-val="especifico">Objetivo específico</button></div></div>
+          <div class="judge-item" data-correct="especifico"><p>"Evaluar el impacto de las políticas educativas actuales sobre la retención escolar."</p>
+            <div class="judge-btns"><button class="judge-btn" data-val="general">Objetivo general</button><button class="judge-btn" data-val="especifico">Objetivo específico</button></div></div>
+        </div>
+        <div class="result-msg" id="objResult"></div>
+      </div>
+
+      <div class="activity-box" style="background:transparent;border:none;padding:0;">
+        <div class="manual-box">
+          <h3>Actividad manual — Para trabajar en clase</h3>
+          <ol>
+            <li>Elige un problema de investigación relacionado con tu área de especialidad.</li>
+            <li>Redacta su delimitación: relevancia, descripción del problema y objeto de estudio.</li>
+            <li>Formula un objetivo general y dos objetivos específicos siguiendo el criterio SMART.</li>
+            <li>Define qué tipo de observación científica utilizarías (estructurada/no estructurada, naturalista/laboratorio, participante/no participante) y justifica tu elección.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUESTIONARIO -->
+    <section class="tab-panel" id="tab-cuestionario">
+      <p class="lead">Examen de repaso — 10 preguntas. El orden cambia cada vez que cargas la página.</p>
+
+      <form id="examForm">
+        <!-- Pregunta 1 -->
+        <div class="exam-q" data-type="single" data-correct="c">
+          <p>1. El objeto de estudio tiene como función principal:</p>
+          <label><input type="radio" name="q1" value="a"> Definir el presupuesto de la investigación</label>
+          <label><input type="radio" name="q1" value="b"> Elegir al equipo de investigadores</label>
+          <label><input type="radio" name="q1" value="c"> Precisar qué aspectos concretos del problema serán investigados</label>
+        </div>
+        <!-- Pregunta 2 -->
+        <div class="exam-q" data-type="single" data-correct="b">
+          <p>2. El objetivo general de una investigación se caracteriza por:</p>
+          <label><input type="radio" name="q2" value="a"> Ser una meta muy específica y detallada</label>
+          <label><input type="radio" name="q2" value="b"> Resumir de manera amplia el propósito principal del estudio</label>
+          <label><input type="radio" name="q2" value="c"> No relacionarse con los objetivos específicos</label>
+        </div>
+        <!-- Pregunta 3 -->
+        <div class="exam-q" data-type="single" data-correct="a">
+          <p>3. La observación no participante se caracteriza porque:</p>
+          <label><input type="radio" name="q3" value="a"> El investigador no interactúa con el grupo, observa desde fuera</label>
+          <label><input type="radio" name="q3" value="b"> El investigador forma parte del grupo observado</label>
+          <label><input type="radio" name="q3" value="c"> Se realiza únicamente en laboratorio</label>
+        </div>
+        <!-- Pregunta 4 (multi) -->
+        <div class="exam-q" data-type="multi" data-correct="a,c,d">
+          <p>4. ¿Cuáles son características de la observación científica?</p>
+          <label><input type="checkbox" name="q4" value="a"> Objetividad</label>
+          <label><input type="checkbox" name="q4" value="b"> Subjetividad del investigador</label>
+          <label><input type="checkbox" name="q4" value="c"> Sistematicidad</label>
+          <label><input type="checkbox" name="q4" value="d"> Repetibilidad</label>
+        </div>
+        <!-- Pregunta 5 (multi) -->
+        <div class="exam-q" data-type="multi" data-correct="a,b,c">
+          <p>5. ¿Qué elementos incluye la delimitación del problema?</p>
+          <label><input type="checkbox" name="q5" value="a"> Relevancia del problema</label>
+          <label><input type="checkbox" name="q5" value="b"> Descripción del problema</label>
+          <label><input type="checkbox" name="q5" value="c"> Objeto de estudio</label>
+          <label><input type="checkbox" name="q5" value="d"> Presupuesto asignado</label>
+        </div>
+        <!-- Pregunta 6 (match) -->
+        <div class="exam-q" data-type="match" data-correct="1-c,2-a,3-d,4-b">
+          <p>6. Empareja cada término con su definición</p>
+          <div class="col-match-row"><span>Objetividad</span><select name="q6-1"><option value="">Selecciona...</option><option value="a">Datos verificables por otros investigadores</option><option value="b">Plan definido con pasos claros</option><option value="c">Datos independientes de las percepciones del investigador</option><option value="d">Interpretación del objeto en su contexto</option></select></div>
+          <div class="col-match-row"><span>Repetibilidad</span><select name="q6-2"><option value="">Selecciona...</option><option value="a">Datos verificables por otros investigadores</option><option value="b">Plan definido con pasos claros</option><option value="c">Datos independientes de las percepciones del investigador</option><option value="d">Interpretación del objeto en su contexto</option></select></div>
+          <div class="col-match-row"><span>Sistematicidad</span><select name="q6-3"><option value="">Selecciona...</option><option value="a">Datos verificables por otros investigadores</option><option value="b">Plan definido con pasos claros</option><option value="c">Datos independientes de las percepciones del investigador</option><option value="d">Interpretación del objeto en su contexto</option></select></div>
+          <div class="col-match-row"><span>Implicación</span><select name="q6-4"><option value="">Selecciona...</option><option value="a">Datos verificables por otros investigadores</option><option value="b">Plan definido con pasos claros</option><option value="c">Datos independientes de las percepciones del investigador</option><option value="d">Interpretación del objeto en su contexto</option></select></div>
+        </div>
+        <!-- Pregunta 7 (single) -->
+        <div class="exam-q" data-type="single" data-correct="a">
+          <p>7. ¿Qué tipo de observación sigue un esquema predefinido?</p>
+          <label><input type="radio" name="q7" value="a"> Estructurada</label>
+          <label><input type="radio" name="q7" value="b"> No estructurada</label>
+          <label><input type="radio" name="q7" value="c"> Participante</label>
+          <label><input type="radio" name="q7" value="d"> Naturalista</label>
+        </div>
+        <!-- Pregunta 8 (single) -->
+        <div class="exam-q" data-type="single" data-correct="d">
+          <p>8. La <em>implicación</em> en la relación sujeto-objeto significa que:</p>
+          <label><input type="radio" name="q8" value="a"> El investigador evita toda interacción con el objeto</label>
+          <label><input type="radio" name="q8" value="b"> Los datos son completamente independientes del investigador</label>
+          <label><input type="radio" name="q8" value="c"> El objeto de estudio no puede ser interpretado</label>
+          <label><input type="radio" name="q8" value="d"> El investigador interpreta el objeto dentro de un contexto específico</label>
+        </div>
+        <!-- Pregunta 9 (multi) -->
+        <div class="exam-q" data-type="multi" data-correct="a,b,c,e">
+          <p>9. ¿Cuáles son elementos del diseño de observación y registro?</p>
+          <label><input type="checkbox" name="q9" value="a"> Selección de herramientas</label>
+          <label><input type="checkbox" name="q9" value="b"> Definición del propósito</label>
+          <label><input type="checkbox" name="q9" value="c"> Momentos de la observación</label>
+          <label><input type="checkbox" name="q9" value="d"> Presupuesto del estudio</label>
+          <label><input type="checkbox" name="q9" value="e"> Registro de datos</label>
+        </div>
+        <!-- Pregunta 10 (match) -->
+        <div class="exam-q" data-type="match" data-correct="1-b,2-c,3-d,4-a">
+          <p>10. Relaciona cada tipo de observación con su definición</p>
+          <div class="col-match-row"><span>Participante</span><select name="q10-1"><option value="">Selecciona...</option><option value="a">Se realiza en el entorno natural</option><option value="b">El investigador forma parte del grupo</option><option value="c">El investigador observa desde fuera</option><option value="d">Sigue un esquema predefinido</option></select></div>
+          <div class="col-match-row"><span>No participante</span><select name="q10-2"><option value="">Selecciona...</option><option value="a">Se realiza en el entorno natural</option><option value="b">El investigador forma parte del grupo</option><option value="c">El investigador observa desde fuera</option><option value="d">Sigue un esquema predefinido</option></select></div>
+          <div class="col-match-row"><span>Estructurada</span><select name="q10-3"><option value="">Selecciona...</option><option value="a">Se realiza en el entorno natural</option><option value="b">El investigador forma parte del grupo</option><option value="c">El investigador observa desde fuera</option><option value="d">Sigue un esquema predefinido</option></select></div>
+          <div class="col-match-row"><span>Naturalista</span><select name="q10-4"><option value="">Selecciona...</option><option value="a">Se realiza en el entorno natural</option><option value="b">El investigador forma parte del grupo</option><option value="c">El investigador observa desde fuera</option><option value="d">Sigue un esquema predefinido</option></select></div>
+        </div>
+      </form>
+      <button class="check-btn" onclick="calificarExamen()">Enviar examen</button>
+      <div class="exam-result" id="examResult"></div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="tab-panel" id="tab-resultados">
+      <div id="nameGate" class="name-gate">
+        <h3>Ingresa tu nombre</h3>
+        <p>Para visualizar tus resultados, escribe tu nombre completo y presiona el botón.</p>
+        <input type="text" id="studentName" placeholder="Nombre completo">
+        <button class="check-btn" onclick="showResultados()" style="width:100%;">Ver mis resultados</button>
+      </div>
+      <div id="resultsView" style="display:none;">
+        <div class="results-header">
+          <h3 id="resultsStudentName"></h3>
+          <span id="resultsCount"></span>
+        </div>
+        <div id="resultsList"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ── TODAS LAS FUNCIONES ENVUELTAS EN DOMContentLoaded ──
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ── NAVEGACIÓN ──
+  function switchTab(tabName){
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    document.querySelectorAll('.side-item, .mtab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll(`[data-tab="${tabName}"]`).forEach(b => b.classList.add('active'));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.querySelectorAll('.side-item, .mtab').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  // ── DESORDENAR PREGUNTAS DEL CUESTIONARIO ──
+  function shuffleQuestions() {
+    const form = document.getElementById('examForm');
+    if (!form) return;
+    const questions = Array.from(form.querySelectorAll('.exam-q'));
+    if (questions.length === 0) return;
+    for (let i = questions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+    questions.forEach(q => form.appendChild(q));
+  }
+  shuffleQuestions();
+
+  // ── ALMACENAMIENTO POR NOMBRE ──
+  const STORAGE_KEY = 'evidencia_metodologia_investigacion_semana2_por_nombre';
+  const NAME_KEY = 'nombre_actual_metodologia_investigacion_semana2';
+
+  function getEvidenceData() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+  }
+  function saveEvidenceData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  function getEvidenceForName(name) {
+    const data = getEvidenceData();
+    return data[name] || [];
+  }
+  function recordEvidenceForName(name, activityName, resultText) {
+    if (!name) return;
+    const data = getEvidenceData();
+    if (!data[name]) data[name] = [];
+    const intentos = data[name].filter(item => item.actividad === activityName).length;
+    const nuevoIntento = intentos + 1;
+    data[name].push({
+      actividad: activityName,
+      resultado: resultText,
+      intento: nuevoIntento,
+      fecha: new Date().toLocaleString('es-MX', { dateStyle:'medium', timeStyle:'short' })
+    });
+    saveEvidenceData(data);
+  }
+  function getCurrentName() { return localStorage.getItem(NAME_KEY) || ''; }
+
+  // ── CLASIFICADOR ──
+  window.checkSelectClasificador = function(){
+    const rows = document.querySelectorAll('#selectBox .select-row');
+    let correct = 0;
+    rows.forEach(row => {
+      const select = row.querySelector('select');
+      if (select.value === row.dataset.correct) correct++;
+    });
+    const result = document.getElementById('selectResult');
+    result.textContent = `Respondiste correctamente ${correct} de ${rows.length}.`;
+    result.className = 'result-msg show ' + (correct === rows.length ? 'ok' : 'bad');
+    const name = getCurrentName();
+    if (name) {
+      recordEvidenceForName(name, 'Clasificador de tipos de observación', `${correct}/${rows.length} correctos`);
+    } else {
+      alert('Por favor, ingresa tu nombre en la sección de Resultados antes de realizar actividades para guardar tu progreso.');
+    }
+  };
+
+  // ── JUDGE ──
+  function setupJudge(boxId, resultId, activityLabel){
+    const box = document.getElementById(boxId);
+    if (!box) return;
+    const state = {};
+    const items = box.querySelectorAll('.judge-item');
+    items.forEach((item, idx) => {
+      const correct = item.dataset.correct;
+      item.querySelectorAll('.judge-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          item.querySelectorAll('.judge-btn').forEach(b => b.classList.remove('right-fb','wrong-fb'));
+          const val = btn.dataset.val;
+          state[idx] = (val === correct);
+          item.querySelectorAll('.judge-btn').forEach(b => {
+            if (b.dataset.val === correct) b.classList.add('right-fb');
+            else if (b === btn) b.classList.add('wrong-fb');
+          });
+          const answered = Object.keys(state).length;
+          const correctCount = Object.values(state).filter(v => v).length;
+          const result = document.getElementById(resultId);
+          if (result) {
+            result.textContent = `Llevas ${correctCount} correctas de ${answered} respondidas (${items.length} en total).`;
+            result.className = 'result-msg show ' + (answered === items.length && correctCount === items.length ? 'ok' : 'bad');
+            if (answered === items.length) {
+              const name = getCurrentName();
+              if (name) {
+                recordEvidenceForName(name, activityLabel, `${correctCount}/${items.length} correctas`);
+              } else {
+                alert('Por favor, ingresa tu nombre en la sección de Resultados antes de realizar actividades para guardar tu progreso.');
+              }
+            }
+          }
+        });
+      });
+    });
+  }
+  setupJudge('vfBox', 'vfResult', 'Verdadero o falso');
+  setupJudge('objBox', 'objResult', 'Objetivo general o específico');
+
+  // ── RELACIONA CONCEPTOS ──
+  let matchSelected = null;
+  document.querySelectorAll('.match-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if (item.classList.contains('matched')) return;
+      if (!matchSelected) { matchSelected = item; item.classList.add('selected'); }
+      else if (matchSelected === item) { matchSelected.classList.remove('selected'); matchSelected = null; }
+      else {
+        if (matchSelected.dataset.pair === item.dataset.pair) {
+          matchSelected.classList.remove('selected'); matchSelected.classList.add('matched'); item.classList.add('matched');
+          const total = document.querySelectorAll('#matchTerms .match-item').length;
+          const done = document.querySelectorAll('.match-item.matched').length / 2;
+          const result = document.getElementById('matchResult');
+          result.textContent = `Has emparejado ${done} de ${total} conceptos.`;
+          result.className = 'result-msg show ' + (done === total ? 'ok' : 'bad');
+          if (done === total) {
+            const name = getCurrentName();
+            if (name) {
+              recordEvidenceForName(name, 'Relaciona conceptos', `${total}/${total} emparejados`);
+            } else {
+              alert('Por favor, ingresa tu nombre en la sección de Resultados antes de realizar actividades para guardar tu progreso.');
+            }
+          }
+        } else {
+          item.classList.add('wrong'); matchSelected.classList.add('wrong');
+          setTimeout(() => { item.classList.remove('wrong'); matchSelected.classList.remove('wrong','selected'); matchSelected = null; }, 500);
+          return;
+        }
+        matchSelected = null;
+      }
+    });
+  });
+
+  // ── EXAMEN ──
+  window.calificarExamen = function(){
+    const questions = document.querySelectorAll('.exam-q');
+    let correct = 0, total = 0;
+    questions.forEach(q => {
+      const type = q.dataset.type;
+      q.classList.remove('correct','incorrect');
+      if (type === 'single') {
+        total++;
+        const name = q.querySelector('input').name;
+        const selected = q.querySelector(`input[name="${name}"]:checked`);
+        if (selected && selected.value === q.dataset.correct) { q.classList.add('correct'); correct++; }
+        else q.classList.add('incorrect');
+      } else if (type === 'multi') {
+        total++;
+        const name = q.querySelector('input').name;
+        const checked = [...q.querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value).sort();
+        const expected = q.dataset.correct.split(',').sort();
+        const isCorrect = checked.length === expected.length && checked.every((v,i) => v === expected[i]);
+        if (isCorrect) { q.classList.add('correct'); correct++; } else q.classList.add('incorrect');
+      } else if (type === 'match') {
+        total++;
+        const selects = q.querySelectorAll('select');
+        let allCorrect = true;
+        selects.forEach(sel => { if (!sel.value) allCorrect = false; });
+        if (!allCorrect) { q.classList.add('incorrect'); return; }
+        const expectedPairs = q.dataset.correct.split(',');
+        const selectMap = {};
+        selects.forEach(sel => {
+          const name = sel.name;
+          const match = name.match(/q(\d+)-(\d+)/);
+          if (match) { const col = match[2]; selectMap[col] = sel.value; }
+        });
+        let allMatch = true;
+        expectedPairs.forEach(pair => {
+          const [col, val] = pair.split('-');
+          if (selectMap[col] !== val) allMatch = false;
+        });
+        if (allMatch) { q.classList.add('correct'); correct++; } else q.classList.add('incorrect');
+      }
+    });
+    const pct = Math.round((correct/total)*100);
+    let mensaje = pct >= 90 ? '¡Excelente dominio del tema!' : pct >= 70 ? 'Buen resultado, sigue reforzando los detalles.' : pct >= 50 ? 'Vas bien, pero conviene repasar la síntesis de nuevo.' : 'Te recomendamos regresar a la sección de Síntesis antes de continuar.';
+    const result = document.getElementById('examResult');
+    result.innerHTML = `<h3>${correct} / ${total} — ${pct}%</h3><p>${mensaje}</p>`;
+    result.classList.add('show');
+    result.scrollIntoView({behavior:'smooth', block:'center'});
+    const name = getCurrentName();
+    if (name) {
+      recordEvidenceForName(name, 'Cuestionario final', `${correct}/${total} (${pct}%)`);
+    } else {
+      alert('Por favor, ingresa tu nombre en la sección de Resultados antes de realizar el cuestionario para guardar tu progreso.');
+    }
+  };
+
+  // ── RESULTADOS ──
+  function extraerPorcentaje(texto) {
+    const match = texto.match(/(\d+)\/(\d+)/);
+    if (match) {
+      const aciertos = parseInt(match[1]);
+      const total = parseInt(match[2]);
+      return Math.round((aciertos / total) * 100);
+    }
+    const matchPct = texto.match(/(\d+)%/);
+    if (matchPct) { return parseInt(matchPct[1]); }
+    return null;
+  }
+
+  function calcularPromedioGeneral(evidencias) {
+    const porcentajes = [];
+    const ultimos = {};
+    evidencias.forEach(item => {
+      const act = item.actividad;
+      if (!ultimos[act] || item.intento > ultimos[act].intento) { ultimos[act] = item; }
+    });
+    for (const act in ultimos) {
+      const pct = extraerPorcentaje(ultimos[act].resultado);
+      if (pct !== null) porcentajes.push(pct);
+    }
+    if (porcentajes.length === 0) return null;
+    const suma = porcentajes.reduce((a,b) => a + b, 0);
+    return Math.round(suma / porcentajes.length);
+  }
+
+  function renderResultados(name) {
+    const evidencias = getEvidenceForName(name);
+    document.getElementById('resultsStudentName').textContent = name;
+    const list = document.getElementById('resultsList');
+    const count = document.getElementById('resultsCount');
+
+    const promedio = calcularPromedioGeneral(evidencias);
+    let promedioTexto = '';
+    if (promedio !== null) {
+      promedioTexto = ` · Promedio general: ${promedio}%`;
+    } else {
+      promedioTexto = ' · Aún sin actividades registradas';
+    }
+    count.textContent = promedioTexto;
+
+    if (evidencias.length === 0) {
+      list.innerHTML = '<div class="empty-state">No hay resultados para este nombre. Realiza actividades o el cuestionario para comenzar a registrar tu progreso.</div>';
+      return;
+    }
+
+    const grouped = {};
+    evidencias.forEach(item => {
+      if (!grouped[item.actividad]) grouped[item.actividad] = [];
+      grouped[item.actividad].push(item);
+    });
+
+    list.innerHTML = Object.entries(grouped).map(([actividad, intentos]) => `
+      <div class="activity-group">
+        <div class="activity-group-header">${actividad} <span>${intentos.length} intento${intentos.length > 1 ? 's' : ''}</span></div>
+        ${intentos.map(item => `
+          <div class="result-row">
+            <div class="r-detail">${item.resultado}</div>
+            <div class="r-meta">Intento #${item.intento} · ${item.fecha}</div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+  }
+
+  window.showResultados = function() {
+    const nameInput = document.getElementById('studentName');
+    const name = nameInput.value.trim();
+    if (!name) { nameInput.style.borderColor = '#D32F2F'; nameInput.focus(); return; }
+    nameInput.style.borderColor = '';
+    localStorage.setItem(NAME_KEY, name);
+    document.getElementById('resultsView').style.display = 'block';
+    renderResultados(name);
+  };
+
+  function initResultados() {
+    const savedName = localStorage.getItem(NAME_KEY);
+    if (savedName) {
+      document.getElementById('studentName').value = savedName;
+    }
+  }
+  initResultados();
+
+}); // fin DOMContentLoaded
+</script>
+</body>
+</html>

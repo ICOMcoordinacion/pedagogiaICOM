@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producción de Apoyos Didácticos — Habilidades básicas</title>
+
+  <!-- Favicon (logo ICOM) -->
+  <link rel="icon" href="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" type="image/jpeg">
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== ESTILOS COMPLETOS (sin cambios estructurales) ===== */
+    :root {
+      --bg: #F4F6F9;
+      --ink: #1A2634;
+      --ink-light: #4A5A6A;
+      --line: #C8D0D8;
+      --white: #FFFFFF;
+      --primary: #1E3A5F;
+      --primary-light: #2B5A8C;
+      --primary-soft: #E8EDF3;
+      --accent: #1A5F7A;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;}
+    h1,h2,h3,h4{font-weight:600;}
+    .mono{font-family:'DM Mono',monospace;}
+    .layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+
+    /* SIDEBAR */
+    .sidebar{background:var(--white);border-right:1px solid var(--line);padding:2.5rem 1.75rem;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:space-between;}
+    .side-logo{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;}
+    .side-logo img{width:40px;height:40px;object-fit:contain;border-radius:4px;border:1px solid var(--line);}
+    .side-logo span{font-size:0.75rem;font-weight:600;color:var(--primary);letter-spacing:0.05em;}
+    .side-label{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:.9rem;font-weight:500;}
+    .side-title{font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:.75rem;color:var(--ink);}
+    .side-week{display:inline-block;font-family:'DM Mono',monospace;font-size:.72rem;border:1px solid var(--primary);color:var(--primary);background:var(--primary-soft);padding:.25rem .65rem;margin-bottom:1.5rem;}
+    .side-nav{display:flex;flex-direction:column;gap:.2rem;margin-top:2rem;}
+    .side-item{background:none;border:none;color:var(--ink-light);text-align:left;padding:.8rem .9rem;font-size:.88rem;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:.7rem;transition:background .15s,color .15s;}
+    .side-item:hover{background:var(--primary-soft);color:var(--primary);}
+    .side-item.active{color:var(--primary);font-weight:600;background:var(--primary-soft);}
+    .side-dot{width:6px;height:6px;border-radius:0;background:var(--line);flex-shrink:0;transition:background .2s;}
+    .side-item.active .side-dot{background:var(--primary);}
+    .side-foot{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--ink-light);opacity:.6;}
+
+    /* CONTENT */
+    .content{padding:3.5rem 4rem;width:100%;}
+    .content > .tab-panel{max-width:1080px;margin-left:auto;margin-right:auto;}
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;animation:fadeIn .35s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+    .lead{font-size:1.02rem;color:var(--ink-light);font-weight:400;margin-bottom:2.5rem;max-width:800px;border-left:3px solid var(--primary);padding-left:1.2rem;}
+    .block{margin-bottom:3rem;padding-bottom:2.5rem;border-bottom:1px solid var(--line);}
+    .block h2{font-size:1.4rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;color:var(--ink);}
+    .block .num{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--primary);font-weight:500;background:var(--primary-soft);padding:.2rem .6rem;}
+    .block h3{font-size:1.05rem;font-weight:600;margin:1.5rem 0 .75rem;color:var(--ink);}
+    .block p{font-size:.9rem;color:var(--ink-light);font-weight:400;margin-bottom:1rem;max-width:720px;}
+    .quote-block{background:var(--white);border-left:3px solid var(--primary);padding:1.4rem 1.6rem;font-size:.98rem;font-style:italic;margin:1.25rem 0;color:var(--ink);}
+    .example-tag{display:block;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--ink);background:var(--white);border:1px solid var(--line);padding:.9rem 1.1rem;margin-top:1rem;border-left:3px solid var(--accent);}
+    .example-tag b{font-weight:600;color:var(--accent);}
+    .def-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1.25rem;}
+    .def-card{background:var(--white);padding:1.4rem;}
+    .def-card h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem;color:var(--primary);}
+    .def-card p{font-size:.8rem;color:var(--ink-light);}
+    .type-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.25rem;}
+    .type-col h4{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:.75rem;}
+    .type-item{background:var(--white);border:1px solid var(--line);padding:1rem 1.1rem;margin-bottom:.6rem;border-left:3px solid var(--accent);}
+    .type-item b{display:block;font-size:.88rem;margin-bottom:.2rem;}
+    .type-item span{font-size:.8rem;color:var(--ink-light);}
+    ul.lista-viñeta{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem;}
+    ul.lista-viñeta li{background:var(--primary-soft);padding:.5rem .8rem;border-radius:4px;}
+
+    /* ACTIVITIES */
+    .activity-box{background:var(--white);border:1px solid var(--line);padding:1.75rem;margin-bottom:1.5rem;}
+    .activity-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem;}
+    .activity-label::before{content:'';width:16px;height:1px;background:var(--primary);}
+
+    .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+    .match-col{display:flex;flex-direction:column;gap:.6rem;}
+    .match-item{background:var(--bg);border:1px solid var(--line);padding:.85rem 1rem;font-size:.82rem;cursor:pointer;}
+    .match-item.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .match-item.matched{background:#E8EDF3;border-color:var(--primary);color:var(--ink);cursor:default;}
+    .match-item.wrong{background:#FCE4EC;border-color:#D32F2F;}
+
+    .sort-container{display:flex;flex-direction:column;gap:.5rem;}
+    .sort-item{background:var(--bg);border:1px solid var(--line);padding:.8rem 1rem;cursor:grab;font-size:.85rem;border-radius:4px;}
+    .sort-item.dragging{opacity:.5;border-style:dashed;}
+
+    .drop-zone{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem;background:var(--bg);border:1px dashed var(--line);min-height:70px;align-items:center;}
+    .drop-word{background:var(--white);border:1px solid var(--line);padding:.4rem .8rem;cursor:grab;font-size:.85rem;border-radius:4px;}
+    .drop-slot{display:inline-block;min-width:80px;border-bottom:2px solid var(--primary);margin:0 .2rem;padding:0 .2rem;color:var(--primary);font-weight:500;}
+    .drop-slot.filled{color:var(--ink);border-bottom-color:var(--ink);}
+
+    .card-select-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+    .card-option{background:var(--bg);border:1px solid var(--line);padding:.8rem 1rem;cursor:pointer;border-radius:4px;transition:all .2s;}
+    .card-option:hover{background:var(--primary-soft);}
+    .card-option.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+    .tf-grid{display:flex;gap:1rem;flex-wrap:wrap;}
+    .tf-btn{background:var(--white);border:1px solid var(--line);padding:.6rem 1.5rem;font-size:.85rem;cursor:pointer;border-radius:4px;transition:all .2s;}
+    .tf-btn:hover{background:var(--primary-soft);}
+    .tf-btn.selected-correct{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .tf-btn.selected-wrong{background:#D32F2F;color:#fff;border-color:#D32F2F;}
+
+    .check-btn{background:var(--primary);color:#fff;border:none;padding:.75rem 1.75rem;font-size:.82rem;font-weight:500;cursor:pointer;border-radius:4px;transition:background .2s;}
+    .check-btn:hover{background:var(--primary-light);}
+    .result-msg{margin-top:1rem;font-size:.85rem;font-weight:500;padding:.7rem 1rem;display:none;border-radius:4px;}
+    .result-msg.show{display:block;}
+    .result-msg.ok{background:#E8EDF3;color:var(--primary);border:1px solid var(--primary);}
+    .result-msg.bad{background:#FCE4EC;color:#B71C1C;border:1px solid #D32F2F;}
+
+    .cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;}
+    .cat-box{background:var(--bg);border:1px solid var(--line);padding:1rem;min-height:120px;border-radius:4px;}
+    .cat-box h4{font-size:.8rem;text-transform:uppercase;color:var(--primary);margin-bottom:.5rem;}
+    .cat-item{background:var(--white);border:1px solid var(--line);padding:.6rem .9rem;margin:.4rem 0;cursor:grab;font-size:.82rem;border-radius:4px;}
+    .cat-item.placed{background:var(--primary-soft);border-color:var(--primary);cursor:default;}
+
+    .manual-box{background:var(--primary);color:#fff;padding:2rem;border-radius:4px;}
+    .manual-box h3{font-size:1.1rem;font-weight:500;margin-bottom:1rem;color:#fff;}
+    .manual-box ol{padding-left:1.25rem;display:flex;flex-direction:column;gap:.5rem;}
+    .manual-box li{font-size:.85rem;font-weight:300;opacity:.95;}
+
+    /* QUIZ */
+    .exam-q{background:var(--white);border:1px solid var(--line);padding:1.25rem 1.5rem;margin-bottom:1rem;}
+    .exam-q p{font-size:.88rem;font-weight:500;margin-bottom:.75rem;}
+    .exam-q label{display:flex;align-items:center;gap:.6rem;font-size:.83rem;color:var(--ink-light);padding:.4rem 0;cursor:pointer;}
+    .exam-q input{accent-color:var(--primary);}
+    .exam-q.correct{border-color:var(--primary);background:#F0F4F8;}
+    .exam-q.incorrect{border-color:#D32F2F;background:#FDF2F2;}
+    .exam-result{margin-top:1.5rem;padding:1.5rem;background:var(--primary);color:#fff;display:none;border-radius:4px;}
+    .exam-result.show{display:block;}
+    .exam-result h3{font-size:1.3rem;font-weight:600;margin-bottom:.5rem;color:#fff;}
+    .exam-result p{font-size:.86rem;opacity:.9;color:#fff;}
+    .col-match-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem 0;font-size:.83rem;}
+    .col-match-row select{padding:.4rem;border:1px solid var(--line);font-family:'DM Sans',sans-serif;background:var(--white);flex:1;min-width:0;}
+
+    /* RESULTADOS */
+    .name-gate{background:var(--white);border:1px solid var(--line);padding:1.25rem 1.5rem;text-align:center;margin-bottom:2rem;border-radius:4px;}
+    .name-gate h3{margin-bottom:.75rem;color:var(--primary);}
+    .name-gate p{font-size:.85rem;color:var(--ink-light);margin-bottom:1.25rem;}
+    .name-gate input{width:100%;padding:.75rem 1rem;border:1px solid var(--line);font-family:'DM Sans',sans-serif;font-size:.88rem;margin-bottom:1rem;border-radius:4px;}
+    .name-gate input:focus{border-color:var(--primary);outline:none;}
+    .results-header{background:var(--primary);color:#fff;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;border-radius:4px;}
+    .results-header h3{color:#fff;font-size:1.15rem;}
+    .results-header span{font-size:.78rem;opacity:.8;}
+    .activity-group{background:var(--white);border:1px solid var(--line);padding:1.25rem 1.5rem;margin-bottom:1.25rem;border-radius:4px;overflow:hidden;}
+    .activity-group-header{background:var(--bg);color:var(--ink);font-size:.83rem;font-weight:600;padding:.85rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);margin:-1.25rem -1.5rem 0 -1.5rem;}
+    .activity-group-header span{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:500;background:var(--primary-soft);color:var(--primary);padding:.2rem .6rem;border-radius:4px;}
+    .result-row{padding:.7rem 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
+    .result-row:last-child{border-bottom:none;}
+    .result-row .r-detail{font-size:.83rem;color:var(--ink);}
+    .result-row .r-meta{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink-light);white-space:nowrap;}
+    .empty-state{font-size:.86rem;color:var(--ink-light);padding:2rem;text-align:center;background:var(--white);border:1px dashed var(--line);border-radius:4px;}
+
+    /* MOBILE */
+    .mobile-header{display:none;background:var(--white);padding:0.8rem 1.25rem;border-bottom:1px solid var(--line);align-items:center;gap:0.8rem;flex-wrap:wrap;}
+    .mobile-header .mobile-logo{display:flex;align-items:center;gap:0.6rem;}
+    .mobile-header .mobile-logo img{width:32px;height:32px;object-fit:contain;border-radius:4px;border:1px solid var(--line);}
+    .mobile-header .mobile-title{font-size:1rem;font-weight:700;color:var(--ink);line-height:1.2;}
+    .mobile-header .mobile-week{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--primary);background:var(--primary-soft);display:inline-block;padding:.1rem .5rem;border:1px solid var(--primary);border-radius:4px;}
+    .mobile-header .mobile-sub{font-size:.65rem;color:var(--ink-light);width:100%;}
+    .mobile-tabs{display:none;position:sticky;top:0;background:var(--white);border-bottom:1px solid var(--line);z-index:50;}
+    .mobile-tabs-inner{display:grid;grid-template-columns:repeat(4, 1fr);}
+    .mtab{background:none;border:none;color:var(--ink-light);padding:0.8rem 0.2rem;font-size:0.75rem;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:center;word-break:break-word;border-bottom:2px solid transparent;transition:border-color .15s, color .15s;}
+    .mtab.active{color:var(--primary);font-weight:600;border-bottom-color:var(--primary);}
+
+    @media(max-width:900px){
+      .layout{grid-template-columns:1fr;}
+      .sidebar{display:none;}
+      .mobile-header{display:flex;}
+      .mobile-tabs{display:block;}
+      .content{padding:1.5rem 0.8rem;}
+      .exam-q{padding:1rem;}
+      .exam-q label{font-size:.8rem;gap:.4rem;}
+      .col-match-row{flex-direction:column;align-items:stretch;gap:.4rem;}
+      .col-match-row select{width:100%;padding:.5rem;}
+      .type-cols,.match-grid{grid-template-columns:1fr;}
+      .def-grid{grid-template-columns:1fr;}
+      .card-select-grid{grid-template-columns:1fr;}
+      .cat-grid{grid-template-columns:1fr;}
+      ul.lista-viñeta{grid-template-columns:1fr;}
+      .results-header{padding:1.2rem;}
+      .name-gate{padding:1.5rem;}
+      .activity-group{padding:1rem;}
+      .activity-group-header{margin:-1rem -1rem 0 -1rem;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="side-top">
+      <div class="side-logo">
+        <img src="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" alt="ICOM">
+        <span>ICOM</span>
+      </div>
+      <p class="side-label">Producción de Apoyos Didácticos</p>
+      <h1 class="side-title">Habilidades básicas<br>para apoyos<br>didácticos</h1>
+      <span class="side-week mono">Semana 2</span>
+    </div>
+    <nav class="side-nav">
+      <button class="side-item active" data-tab="sintesis"><span class="side-dot"></span>Síntesis</button>
+      <button class="side-item" data-tab="actividades"><span class="side-dot"></span>Actividades</button>
+      <button class="side-item" data-tab="cuestionario"><span class="side-dot"></span>Cuestionario</button>
+      <button class="side-item" data-tab="resultados"><span class="side-dot"></span>Resultados</button>
+    </nav>
+    <p class="side-foot mono">César Delgado</p>
+  </aside>
+
+  <!-- MOBILE HEADER -->
+  <div class="mobile-header">
+    <div class="mobile-logo">
+      <img src="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" alt="ICOM">
+      <span class="mobile-title">Habilidades para apoyos didácticos</span>
+    </div>
+    <span class="mobile-week mono">Semana 2</span>
+    <div class="mobile-sub">Producción de Apoyos Didácticos</div>
+  </div>
+
+  <nav class="mobile-tabs">
+    <div class="mobile-tabs-inner">
+      <button class="mtab active" data-tab="sintesis">Síntesis</button>
+      <button class="mtab" data-tab="actividades">Actividades</button>
+      <button class="mtab" data-tab="cuestionario">Cuestionario</button>
+      <button class="mtab" data-tab="resultados">Resultados</button>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <!-- ===== SÍNTESIS (contenido COMPLETO restaurado) ===== -->
+    <section class="tab-panel active" id="tab-sintesis">
+      <p class="lead">La elaboración de apoyos didácticos requiere el desarrollo de habilidades que permitan diseñar materiales claros, atractivos y funcionales. Entre las más importantes se encuentran la creatividad, el dibujo, la rotulación y el uso del color, ya que contribuyen a mejorar la comunicación de la información y favorecen el aprendizaje de los estudiantes.</p>
+
+      <div class="block">
+        <h2><span class="num">II.1</span>Creatividad</h2>
+        <p>La <strong>creatividad</strong> es la capacidad de generar ideas originales y útiles para resolver problemas o presentar información de manera innovadora. En la elaboración de apoyos didácticos, permite diseñar materiales que capten la atención del estudiante y faciliten la comprensión de los contenidos.</p>
+        <h3>Importancia</h3>
+        <ul class="lista-viñeta">
+          <li>✓ Favorece el aprendizaje significativo.</li>
+          <li>✓ Incrementa el interés y la motivación.</li>
+          <li>✓ Permite adaptar los materiales a las necesidades del grupo.</li>
+          <li>✓ Promueve la participación y el pensamiento crítico.</li>
+        </ul>
+        <div class="example-tag"><b>Ejemplo:</b> Elaborar un juego de mesa para enseñar conceptos de matemáticas o ciencias.</div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">II.2</span>Dibujo</h2>
+        <p>El <strong>dibujo</strong> es una habilidad que permite representar ideas, objetos o procesos mediante ilustraciones. No es necesario ser un artista; lo importante es que las imágenes sean claras y apoyen la explicación del tema.</p>
+        <h3>Aplicaciones</h3>
+        <ul class="lista-viñeta">
+          <li>✓ Esquemas.</li>
+          <li>✓ Diagramas.</li>
+          <li>✓ Mapas conceptuales.</li>
+          <li>✓ Ilustraciones.</li>
+          <li>✓ Croquis.</li>
+        </ul>
+        <div class="quote-block">Un buen dibujo facilita la comprensión de conceptos complejos y hace más atractivos los materiales didácticos.</div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">II.3</span>Rotulación</h2>
+        <p>La <strong>rotulación</strong> consiste en escribir textos de forma clara, ordenada y legible para comunicar información de manera efectiva.</p>
+        <h3>Recomendaciones</h3>
+        <ul class="lista-viñeta">
+          <li>✓ Utilizar letras de tamaño adecuado.</li>
+          <li>✓ Mantener uniformidad en el estilo.</li>
+          <li>✓ Respetar espacios entre palabras y líneas.</li>
+          <li>✓ Destacar títulos y subtítulos.</li>
+          <li>✓ Evitar el exceso de texto.</li>
+        </ul>
+        <div class="example-tag">Una buena rotulación mejora la presentación del material y facilita la lectura.</div>
+      </div>
+
+      <div class="block">
+        <h2><span class="num">II.4</span>Uso del color</h2>
+        <p>El <strong>color</strong> es un elemento visual que ayuda a organizar la información, llamar la atención y resaltar los aspectos más importantes de un material didáctico.</p>
+        <h3>Recomendaciones</h3>
+        <ul class="lista-viñeta">
+          <li>✓ Utilizar colores con un propósito específico.</li>
+          <li>✓ Mantener una combinación armónica.</li>
+          <li>✓ Emplear colores contrastantes para mejorar la legibilidad.</li>
+          <li>✓ Evitar el uso excesivo de colores que puedan distraer.</li>
+        </ul>
+        <div class="quote-block">El uso adecuado del color favorece la comprensión y hace que los materiales sean más atractivos para los estudiantes.</div>
+      </div>
+
+      <div class="block" style="border-bottom:none;">
+        <h2><span class="num">5</span>Conclusión</h2>
+        <p>Las habilidades básicas para elaborar apoyos didácticos permiten diseñar materiales que facilitan el aprendizaje y mejoran la comunicación entre el docente y los estudiantes. La creatividad, el dibujo, la rotulación y el uso del color deben combinarse para producir recursos claros, organizados y visualmente atractivos.</p>
+      </div>
+    </section>
+
+    <!-- ===== ACTIVIDADES (9 actividades funcionales) ===== -->
+    <section class="tab-panel" id="tab-actividades">
+      <p class="lead">Practica las habilidades con estas actividades interactivas.</p>
+
+      <!-- ACTIVIDAD 1 -->
+      <div class="activity-box">
+        <div class="activity-label">1. Relaciona cada habilidad con su ejemplo</div>
+        <div class="match-grid">
+          <div class="match-col" id="matchTerms">
+            <div class="match-item" data-pair="1">Creatividad</div>
+            <div class="match-item" data-pair="2">Dibujo</div>
+            <div class="match-item" data-pair="3">Rotulación</div>
+            <div class="match-item" data-pair="4">Uso del color</div>
+          </div>
+          <div class="match-col" id="matchDefs">
+            <div class="match-item" data-pair="2">Realizar un esquema del ciclo del agua.</div>
+            <div class="match-item" data-pair="3">Escribir el título con letras grandes y claras.</div>
+            <div class="match-item" data-pair="4">Usar rojo para resaltar fechas importantes.</div>
+            <div class="match-item" data-pair="1">Inventar un juego de memoria para aprender vocabulario.</div>
+          </div>
+        </div>
+        <div class="result-msg" id="matchResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 2 -->
+      <div class="activity-box">
+        <div class="activity-label">2. Completa las frases arrastrando la palabra adecuada</div>
+        <div id="dropContainer">
+          <p style="font-size:.88rem;margin-bottom:.5rem;">La <span class="drop-slot" data-answer="creatividad">______</span> permite generar ideas originales.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem;">El <span class="drop-slot" data-answer="dibujo">______</span> representa ideas mediante ilustraciones.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem;">La <span class="drop-slot" data-answer="rotulación">______</span> se refiere a escribir de forma clara.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem;">El <span class="drop-slot" data-answer="color">______</span> ayuda a organizar y resaltar información.</p>
+          <div class="drop-zone" id="wordBank">
+            <span class="drop-word" draggable="true" data-word="creatividad">creatividad</span>
+            <span class="drop-word" draggable="true" data-word="dibujo">dibujo</span>
+            <span class="drop-word" draggable="true" data-word="rotulación">rotulación</span>
+            <span class="drop-word" draggable="true" data-word="color">color</span>
+          </div>
+        </div>
+        <button class="check-btn" onclick="checkDrop()">Verificar completado</button>
+        <div class="result-msg" id="dropResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 3 -->
+      <div class="activity-box">
+        <div class="activity-label">3. Elige la opción correcta para cada pregunta</div>
+        <div id="cardQuiz">
+          <div style="margin-bottom:1.5rem;">
+            <p style="font-weight:500;font-size:.88rem;">1. ¿Cuál es el objetivo principal de la rotulación?</p>
+            <div class="card-select-grid" data-correct="b">
+              <div class="card-option" data-val="a">A. Decorar el material.</div>
+              <div class="card-option" data-val="b">B. Comunicar información de forma clara.</div>
+              <div class="card-option" data-val="c">C. Ocupar espacio en blanco.</div>
+              <div class="card-option" data-val="d">D. Mostrar habilidades artísticas.</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1.5rem;">
+            <p style="font-weight:500;font-size:.88rem;">2. ¿Qué se recomienda evitar en el uso del color?</p>
+            <div class="card-select-grid" data-correct="d">
+              <div class="card-option" data-val="a">A. Usar colores contrastantes.</div>
+              <div class="card-option" data-val="b">B. Mantener armonía.</div>
+              <div class="card-option" data-val="c">C. Resaltar información importante.</div>
+              <div class="card-option" data-val="d">D. Utilizar demasiados colores que distraigan.</div>
+            </div>
+          </div>
+        </div>
+        <button class="check-btn" onclick="checkCardQuiz()">Verificar respuestas</button>
+        <div class="result-msg" id="cardResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 4 -->
+      <div class="activity-box">
+        <div class="activity-label">4. Clasifica cada recomendación según la habilidad (arrastra)</div>
+        <div class="cat-grid" id="catGrid">
+          <div class="cat-box" data-category="dibujo"><h4>Dibujo</h4><div class="cat-items"></div></div>
+          <div class="cat-box" data-category="rotulacion"><h4>Rotulación</h4><div class="cat-items"></div></div>
+          <div class="cat-box" data-category="color"><h4>Uso del color</h4><div class="cat-items"></div></div>
+        </div>
+        <div id="catBank" style="display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem 0;">
+          <div class="cat-item" draggable="true" data-category="dibujo">Representar procesos con diagramas.</div>
+          <div class="cat-item" draggable="true" data-category="rotulacion">Usar letras de tamaño adecuado.</div>
+          <div class="cat-item" draggable="true" data-category="color">Emplear colores contrastantes.</div>
+          <div class="cat-item" draggable="true" data-category="dibujo">Hacer croquis de objetos.</div>
+          <div class="cat-item" draggable="true" data-category="rotulacion">Mantener uniformidad en el estilo.</div>
+          <div class="cat-item" draggable="true" data-category="color">Resaltar títulos con colores vivos.</div>
+        </div>
+        <button class="check-btn" onclick="checkCategories()">Verificar clasificación</button>
+        <div class="result-msg" id="catResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 5 -->
+      <div class="activity-box">
+        <div class="activity-label">5. Ordena los pasos para diseñar un cartel educativo (arrastra)</div>
+        <div class="sort-container" id="sortContainer">
+          <div class="sort-item" draggable="true" data-order="2">Seleccionar la información clave.</div>
+          <div class="sort-item" draggable="true" data-order="4">Dibujar las ilustraciones o esquemas.</div>
+          <div class="sort-item" draggable="true" data-order="3">Definir la distribución del espacio.</div>
+          <div class="sort-item" draggable="true" data-order="5">Rotular títulos y textos con claridad.</div>
+          <div class="sort-item" draggable="true" data-order="1">Definir el tema y el objetivo del cartel.</div>
+        </div>
+        <button class="check-btn" onclick="checkSort()">Verificar orden</button>
+        <div class="result-msg" id="sortResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 6 -->
+      <div class="activity-box">
+        <div class="activity-label">6. Verdadero o falso — elige la opción correcta</div>
+        <div id="tfQuiz">
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">"La creatividad solo se aplica en las artes."</p>
+            <div class="tf-grid" data-correct="falso">
+              <button class="tf-btn" data-val="verdadero">Verdadero</button>
+              <button class="tf-btn" data-val="falso">Falso</button>
+            </div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">"El dibujo en apoyos didácticos debe ser siempre realista."</p>
+            <div class="tf-grid" data-correct="falso">
+              <button class="tf-btn" data-val="verdadero">Verdadero</button>
+              <button class="tf-btn" data-val="falso">Falso</button>
+            </div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">"La rotulación incluye escribir títulos con letras grandes y claras."</p>
+            <div class="tf-grid" data-correct="verdadero">
+              <button class="tf-btn" data-val="verdadero">Verdadero</button>
+              <button class="tf-btn" data-val="falso">Falso</button>
+            </div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">"El uso excesivo de colores mejora la legibilidad."</p>
+            <div class="tf-grid" data-correct="falso">
+              <button class="tf-btn" data-val="verdadero">Verdadero</button>
+              <button class="tf-btn" data-val="falso">Falso</button>
+            </div>
+          </div>
+        </div>
+        <button class="check-btn" onclick="checkTF()">Verificar respuestas</button>
+        <div class="result-msg" id="tfResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 7 -->
+      <div class="activity-box">
+        <div class="activity-label">7. Selecciona la respuesta correcta (opción múltiple)</div>
+        <div id="multiBtnQuiz">
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">1. ¿Qué habilidad permite generar ideas originales?</p>
+            <div class="card-select-grid" data-correct="creatividad">
+              <div class="card-option" data-val="dibujo">Dibujo</div>
+              <div class="card-option" data-val="creatividad">Creatividad</div>
+              <div class="card-option" data-val="rotulación">Rotulación</div>
+              <div class="card-option" data-val="color">Uso del color</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <p style="font-size:.88rem;font-weight:500;">2. ¿Qué elemento ayuda a organizar la información visualmente?</p>
+            <div class="card-select-grid" data-correct="color">
+              <div class="card-option" data-val="dibujo">Dibujo</div>
+              <div class="card-option" data-val="creatividad">Creatividad</div>
+              <div class="card-option" data-val="rotulación">Rotulación</div>
+              <div class="card-option" data-val="color">Uso del color</div>
+            </div>
+          </div>
+        </div>
+        <button class="check-btn" onclick="checkMultiBtn()">Verificar respuestas</button>
+        <div class="result-msg" id="multiBtnResult"></div>
+      </div>
+
+      <!-- ACTIVIDAD 8 -->
+      <div class="activity-box">
+        <div class="activity-label">8. Relaciona cada término con su definición</div>
+        <div class="match-grid" id="matchGrid2">
+          <div class="match-col" id="matchTerms2">
+            <div class="match-item" data-pair="a">Creatividad</div>
+            <div class="match-item" data-pair="b">Dibujo</div>
+            <div class="match-item" data-pair="c">Rotulación</div>
+            <div class="match-item" data-pair="d">Uso del color</div>
+          </div>
+          <div class="match-col" id="matchDefs2">
+            <div class="match-item" data-pair="b">Representación gráfica de ideas.</div>
+            <div class="match-item" data-pair="c">Escritura clara y ordenada.</div>
+            <div class="match-item" data-pair="d">Aplicación de tonos para resaltar.</div>
+            <div class="match-item" data-pair="a">Generación de soluciones originales.</div>
+          </div>
+        </div>
+        <div class="result-msg" id="matchResult2"></div>
+      </div>
+
+      <!-- ACTIVIDAD 9 -->
+      <div class="activity-box">
+        <div class="activity-label">9. Ordena las palabras para formar una oración correcta (arrastra)</div>
+        <div class="sort-container" id="sentenceSort">
+          <div class="sort-item" draggable="true" data-order="2">colores</div>
+          <div class="sort-item" draggable="true" data-order="4">información.</div>
+          <div class="sort-item" draggable="true" data-order="1">Los</div>
+          <div class="sort-item" draggable="true" data-order="3">organizan</div>
+          <div class="sort-item" draggable="true" data-order="5">la</div>
+        </div>
+        <button class="check-btn" onclick="checkSentence()">Verificar orden</button>
+        <div class="result-msg" id="sentenceResult"></div>
+      </div>
+
+      <!-- Actividad manual -->
+      <div class="activity-box" style="background:transparent;border:none;padding:0;">
+        <div class="manual-box">
+          <h3>Actividad manual — Para trabajar en clase</h3>
+          <ol>
+            <li><strong>Cartel educativo:</strong> Diseña un cartel sobre un tema de tu elección. El material deberá incluir un dibujo o ilustración, una rotulación clara y un uso adecuado del color para destacar la información más importante.</li>
+            <li><strong>Infografía:</strong> Elabora una infografía digital o en cartulina sobre un contenido de alguna asignatura. Explica cómo aplicaste la creatividad, el dibujo, la rotulación y el uso del color para hacer más comprensible la información.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUESTIONARIO ===== -->
+    <section class="tab-panel" id="tab-cuestionario">
+      <p class="lead">Examen de repaso — 10 preguntas. El orden cambia cada vez que cargas la página.</p>
+      <form id="examForm">
+        <div class="exam-q" data-type="single" data-correct="b"><p>1. ¿Qué habilidad permite generar ideas originales?</p>
+          <label><input type="radio" name="q1" value="a"> Dibujo</label>
+          <label><input type="radio" name="q1" value="b"> Creatividad</label>
+          <label><input type="radio" name="q1" value="c"> Rotulación</label></div>
+        <div class="exam-q" data-type="single" data-correct="c"><p>2. La rotulación se refiere a:</p>
+          <label><input type="radio" name="q2" value="a"> Dibujar ilustraciones</label>
+          <label><input type="radio" name="q2" value="b"> Usar colores llamativos</label>
+          <label><input type="radio" name="q2" value="c"> Escribir textos de forma clara</label></div>
+        <div class="exam-q" data-type="single" data-correct="a"><p>3. ¿Cuál es una aplicación del dibujo?</p>
+          <label><input type="radio" name="q3" value="a"> Elaborar diagramas</label>
+          <label><input type="radio" name="q3" value="b"> Escribir títulos</label>
+          <label><input type="radio" name="q3" value="c"> Seleccionar colores</label></div>
+        <div class="exam-q" data-type="multi" data-correct="a,c,d"><p>4. Beneficios de la creatividad:</p>
+          <label><input type="checkbox" name="q4" value="a"> Favorece aprendizaje significativo</label>
+          <label><input type="checkbox" name="q4" value="b"> Reduce el tiempo de estudio</label>
+          <label><input type="checkbox" name="q4" value="c"> Incrementa interés y motivación</label>
+          <label><input type="checkbox" name="q4" value="d"> Permite adaptar materiales</label></div>
+        <div class="exam-q" data-type="multi" data-correct="a,b,d"><p>5. Recomendaciones para la rotulación:</p>
+          <label><input type="checkbox" name="q5" value="a"> Tamaño adecuado</label>
+          <label><input type="checkbox" name="q5" value="b"> Uniformidad</label>
+          <label><input type="checkbox" name="q5" value="c"> Muchos colores</label>
+          <label><input type="checkbox" name="q5" value="d"> Destacar títulos</label></div>
+        <div class="exam-q" data-type="match" data-correct="1-b,2-c,3-d,4-a"><p>6. Empareja habilidad con propósito</p>
+          <div class="col-match-row"><span>Creatividad</span><select name="q6-1"><option value="">Selecciona...</option><option value="a">Organizar visualmente</option><option value="b">Generar ideas</option><option value="c">Escribir legible</option><option value="d">Resaltar con color</option></select></div>
+          <div class="col-match-row"><span>Rotulación</span><select name="q6-2"><option value="">Selecciona...</option><option value="a">Organizar visualmente</option><option value="b">Generar ideas</option><option value="c">Escribir legible</option><option value="d">Resaltar con color</option></select></div>
+          <div class="col-match-row"><span>Uso del color</span><select name="q6-3"><option value="">Selecciona...</option><option value="a">Organizar visualmente</option><option value="b">Generar ideas</option><option value="c">Escribir legible</option><option value="d">Resaltar con color</option></select></div>
+          <div class="col-match-row"><span>Dibujo</span><select name="q6-4"><option value="">Selecciona...</option><option value="a">Organizar visualmente</option><option value="b">Generar ideas</option><option value="c">Escribir legible</option><option value="d">Resaltar con color</option></select></div></div>
+        <div class="exam-q" data-type="single" data-correct="a"><p>7. ¿Qué evitar en el uso del color?</p>
+          <label><input type="radio" name="q7" value="a"> Demasiados colores que distraigan</label>
+          <label><input type="radio" name="q7" value="b"> Usar contrastes</label>
+          <label><input type="radio" name="q7" value="c"> Emplear colores con propósito</label></div>
+        <div class="exam-q" data-type="single" data-correct="c"><p>8. Un croquis es ejemplo de:</p>
+          <label><input type="radio" name="q8" value="a"> Rotulación</label>
+          <label><input type="radio" name="q8" value="b"> Uso del color</label>
+          <label><input type="radio" name="q8" value="c"> Dibujo</label></div>
+        <div class="exam-q" data-type="multi" data-correct="a,b,d"><p>9. Elementos de buena rotulación:</p>
+          <label><input type="checkbox" name="q9" value="a"> Espacios entre palabras</label>
+          <label><input type="checkbox" name="q9" value="b"> Evitar exceso de texto</label>
+          <label><input type="checkbox" name="q9" value="c"> Solo mayúsculas</label>
+          <label><input type="checkbox" name="q9" value="d"> Uniformidad</label></div>
+        <div class="exam-q" data-type="match" data-correct="1-a,2-c,3-b,4-d"><p>10. Relaciona recomendación con habilidad</p>
+          <div class="col-match-row"><span>Representar procesos</span><select name="q10-1"><option value="">Selecciona...</option><option value="a">Dibujo</option><option value="b">Rotulación</option><option value="c">Uso del color</option><option value="d">Creatividad</option></select></div>
+          <div class="col-match-row"><span>Resaltar fechas</span><select name="q10-2"><option value="">Selecciona...</option><option value="a">Dibujo</option><option value="b">Rotulación</option><option value="c">Uso del color</option><option value="d">Creatividad</option></select></div>
+          <div class="col-match-row"><span>Títulos grandes</span><select name="q10-3"><option value="">Selecciona...</option><option value="a">Dibujo</option><option value="b">Rotulación</option><option value="c">Uso del color</option><option value="d">Creatividad</option></select></div>
+          <div class="col-match-row"><span>Inventar juego</span><select name="q10-4"><option value="">Selecciona...</option><option value="a">Dibujo</option><option value="b">Rotulación</option><option value="c">Uso del color</option><option value="d">Creatividad</option></select></div></div>
+      </form>
+      <button class="check-btn" onclick="calificarExamen()">Enviar examen</button>
+      <div class="exam-result" id="examResult"></div>
+    </section>
+
+    <!-- ===== RESULTADOS ===== -->
+    <section class="tab-panel" id="tab-resultados">
+      <div id="nameGate" class="name-gate">
+        <h3>Ingresa tu nombre</h3>
+        <p>Para visualizar tus resultados, escribe tu nombre completo y presiona el botón.</p>
+        <input type="text" id="studentName" placeholder="Nombre completo">
+        <button class="check-btn" onclick="showResultados()" style="width:100%;">Ver mis resultados</button>
+      </div>
+      <div id="resultsView" style="display:none;">
+        <div class="results-header">
+          <h3 id="resultsStudentName"></h3>
+          <span id="resultsCount"></span>
+        </div>
+        <div id="resultsList"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // ===== TODAS LAS FUNCIONES (completas y funcionales) =====
+  document.addEventListener('DOMContentLoaded', function() {
+
+    // --- NAVEGACIÓN ---
+    function switchTab(tabName){
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.querySelectorAll('.side-item, .mtab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll(`[data-tab="${tabName}"]`).forEach(b => b.classList.add('active'));
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    document.querySelectorAll('.side-item, .mtab').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // --- DESORDENAR PREGUNTAS ---
+    function shuffleQuestions() {
+      const form = document.getElementById('examForm');
+      if (!form) return;
+      const questions = Array.from(form.querySelectorAll('.exam-q'));
+      if (questions.length === 0) return;
+      for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+      questions.forEach(q => form.appendChild(q));
+    }
+    shuffleQuestions();
+
+    // --- ALMACENAMIENTO ---
+    const STORAGE_KEY = 'evidencia_apoyos_didacticos_semana2';
+    const NAME_KEY = 'nombre_actual_apoyos_didacticos';
+
+    function getEvidenceData() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+    }
+    function saveEvidenceData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function getEvidenceForName(name) {
+      const data = getEvidenceData();
+      return data[name] || [];
+    }
+    function recordEvidenceForName(name, activityName, resultText) {
+      if (!name) return;
+      const data = getEvidenceData();
+      if (!data[name]) data[name] = [];
+      const intentos = data[name].filter(item => item.actividad === activityName).length;
+      const nuevoIntento = intentos + 1;
+      data[name].push({
+        actividad: activityName,
+        resultado: resultText,
+        intento: nuevoIntento,
+        fecha: new Date().toLocaleString('es-MX', { dateStyle:'medium', timeStyle:'short' })
+      });
+      saveEvidenceData(data);
+    }
+    function getCurrentName() { return localStorage.getItem(NAME_KEY) || ''; }
+
+    // --- ACTIVIDAD 1: Relacionar (corregida) ---
+    let matchSelected = null;
+    function initMatch(termsSelector, defsSelector, resultId, activityName) {
+      const termItems = document.querySelectorAll(termsSelector + ' .match-item');
+      const defItems = document.querySelectorAll(defsSelector + ' .match-item');
+      const allItems = [...termItems, ...defItems];
+      allItems.forEach(item => {
+        item.addEventListener('click', function() {
+          if (this.classList.contains('matched')) return;
+          if (!matchSelected) { matchSelected = this; this.classList.add('selected'); }
+          else if (matchSelected === this) { this.classList.remove('selected'); matchSelected = null; }
+          else {
+            if (matchSelected.dataset.pair === this.dataset.pair) {
+              matchSelected.classList.remove('selected');
+              matchSelected.classList.add('matched');
+              this.classList.add('matched');
+              const total = termItems.length;
+              const done = document.querySelectorAll(termsSelector + ' .match-item.matched').length;
+              const result = document.getElementById(resultId);
+              result.textContent = `Has emparejado ${done} de ${total} conceptos.`;
+              result.className = 'result-msg show ' + (done === total ? 'ok' : 'bad');
+              if (done === total) {
+                const name = getCurrentName();
+                if (name) recordEvidenceForName(name, activityName || 'Relacionar', `${total}/${total} emparejados`);
+                else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+              }
+            } else {
+              this.classList.add('wrong');
+              matchSelected.classList.add('wrong');
+              setTimeout(() => {
+                this.classList.remove('wrong');
+                matchSelected.classList.remove('wrong','selected');
+                matchSelected = null;
+              }, 500);
+            }
+          }
+        });
+      });
+    }
+    initMatch('#matchTerms', '#matchDefs', 'matchResult', 'Relacionar habilidad-ejemplo');
+
+    // --- ACTIVIDAD 8: segunda relación ---
+    let matchSelected2 = null;
+    function initMatch2() {
+      const termItems = document.querySelectorAll('#matchTerms2 .match-item');
+      const defItems = document.querySelectorAll('#matchDefs2 .match-item');
+      const allItems = [...termItems, ...defItems];
+      allItems.forEach(item => {
+        item.addEventListener('click', function() {
+          if (this.classList.contains('matched')) return;
+          if (!matchSelected2) { matchSelected2 = this; this.classList.add('selected'); }
+          else if (matchSelected2 === this) { this.classList.remove('selected'); matchSelected2 = null; }
+          else {
+            if (matchSelected2.dataset.pair === this.dataset.pair) {
+              matchSelected2.classList.remove('selected');
+              matchSelected2.classList.add('matched');
+              this.classList.add('matched');
+              const total = termItems.length;
+              const done = document.querySelectorAll('#matchTerms2 .match-item.matched').length;
+              const result = document.getElementById('matchResult2');
+              result.textContent = `Has emparejado ${done} de ${total} conceptos.`;
+              result.className = 'result-msg show ' + (done === total ? 'ok' : 'bad');
+              if (done === total) {
+                const name = getCurrentName();
+                if (name) recordEvidenceForName(name, 'Relacionar definiciones', `${total}/${total} emparejados`);
+                else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+              }
+            } else {
+              this.classList.add('wrong');
+              matchSelected2.classList.add('wrong');
+              setTimeout(() => {
+                this.classList.remove('wrong');
+                matchSelected2.classList.remove('wrong','selected');
+                matchSelected2 = null;
+              }, 500);
+            }
+          }
+        });
+      });
+    }
+    initMatch2();
+
+    // --- ACTIVIDAD 2: Completar ---
+    const dropSlots = document.querySelectorAll('.drop-slot');
+    let draggedWord = null;
+    document.querySelectorAll('.drop-word').forEach(word => {
+      word.addEventListener('dragstart', (e) => {
+        draggedWord = e.target;
+        e.dataTransfer.setData('text/plain', e.target.dataset.word);
+        e.target.style.opacity = '0.5';
+      });
+      word.addEventListener('dragend', (e) => { e.target.style.opacity = '1'; });
+    });
+    dropSlots.forEach(slot => {
+      slot.addEventListener('dragover', (e) => e.preventDefault());
+      slot.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const word = e.dataTransfer.getData('text/plain');
+        if (slot.dataset.answer === word && !slot.classList.contains('filled')) {
+          slot.textContent = word;
+          slot.classList.add('filled');
+          const wordElem = document.querySelector(`.drop-word[data-word="${word}"]`);
+          if (wordElem) wordElem.remove();
+        } else {
+          slot.style.borderColor = '#D32F2F';
+          setTimeout(() => slot.style.borderColor = '', 600);
+        }
+      });
+    });
+    window.checkDrop = function() {
+      const slots = document.querySelectorAll('.drop-slot');
+      let correct = 0;
+      slots.forEach(slot => {
+        if (slot.classList.contains('filled') && slot.textContent === slot.dataset.answer) correct++;
+      });
+      const result = document.getElementById('dropResult');
+      result.textContent = `Completaste ${correct} de ${slots.length} frases.`;
+      result.className = 'result-msg show ' + (correct === slots.length ? 'ok' : 'bad');
+      if (correct === slots.length) {
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Completar frases', `${correct}/${slots.length} correctas`);
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      }
+    };
+
+    // --- ACTIVIDAD 3: Tarjetas ---
+    document.querySelectorAll('.card-option').forEach(card => {
+      card.addEventListener('click', function() {
+        const parent = this.closest('.card-select-grid');
+        parent.querySelectorAll('.card-option').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    window.checkCardQuiz = function() {
+      const groups = document.querySelectorAll('#cardQuiz .card-select-grid');
+      let correct = 0;
+      groups.forEach(group => {
+        const selected = group.querySelector('.card-option.selected');
+        if (selected && selected.dataset.val === group.dataset.correct) correct++;
+      });
+      const result = document.getElementById('cardResult');
+      result.textContent = `Respondiste correctamente ${correct} de ${groups.length}.`;
+      result.className = 'result-msg show ' + (correct === groups.length ? 'ok' : 'bad');
+      if (correct === groups.length) {
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Tarjetas de selección', `${correct}/${groups.length} correctas`);
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      }
+    };
+
+    // --- ACTIVIDAD 4: Clasificar ---
+    let draggedCat = null;
+    document.querySelectorAll('.cat-item').forEach(item => {
+      item.addEventListener('dragstart', (e) => {
+        draggedCat = e.target;
+        e.dataTransfer.setData('text/plain', e.target.dataset.category);
+        e.target.style.opacity = '0.5';
+      });
+      item.addEventListener('dragend', (e) => { e.target.style.opacity = '1'; });
+    });
+    document.querySelectorAll('.cat-box').forEach(box => {
+      box.addEventListener('dragover', (e) => e.preventDefault());
+      box.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const category = e.dataTransfer.getData('text/plain');
+        if (draggedCat && draggedCat.dataset.category === category && !draggedCat.classList.contains('placed')) {
+          const itemsContainer = box.querySelector('.cat-items');
+          draggedCat.classList.add('placed');
+          draggedCat.draggable = false;
+          itemsContainer.appendChild(draggedCat);
+          draggedCat = null;
+        }
+      });
+    });
+    window.checkCategories = function() {
+      const items = document.querySelectorAll('.cat-item');
+      let correct = 0;
+      items.forEach(item => {
+        const parentBox = item.closest('.cat-box');
+        if (parentBox && parentBox.dataset.category === item.dataset.category) correct++;
+      });
+      const total = items.length;
+      const result = document.getElementById('catResult');
+      result.textContent = `Clasificaste correctamente ${correct} de ${total} recomendaciones.`;
+      result.className = 'result-msg show ' + (correct === total ? 'ok' : 'bad');
+      if (correct === total) {
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Clasificar recomendaciones', `${correct}/${total} correctas`);
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      }
+    };
+
+    // --- ACTIVIDAD 5: Ordenar pasos ---
+    const sortContainer = document.getElementById('sortContainer');
+    let dragSort = null;
+    if (sortContainer) {
+      sortContainer.addEventListener('dragstart', (e) => {
+        dragSort = e.target;
+        e.dataTransfer.setData('text/plain', '');
+        e.target.classList.add('dragging');
+      });
+      sortContainer.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+        dragSort = null;
+      });
+      sortContainer.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(sortContainer, e.clientY);
+        if (afterElement == null) sortContainer.appendChild(dragSort);
+        else sortContainer.insertBefore(dragSort, afterElement);
+      });
+      function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.sort-item:not(.dragging)')];
+        return draggableElements.reduce((closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) return { offset, element: child };
+          return closest;
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+      }
+    }
+    window.checkSort = function() {
+      const items = document.querySelectorAll('#sortContainer .sort-item');
+      let orders = [];
+      items.forEach(item => orders.push(parseInt(item.dataset.order)));
+      const expected = [1,2,3,4,5];
+      let correct = true;
+      for (let i=0; i<expected.length; i++) {
+        if (orders[i] !== expected[i]) { correct = false; break; }
+      }
+      const result = document.getElementById('sortResult');
+      if (correct) {
+        result.textContent = '¡Orden correcto! Has completado la secuencia.';
+        result.className = 'result-msg show ok';
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Ordenar pasos cartel', '5/5 correctos');
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      } else {
+        result.textContent = 'El orden no es correcto. Revisa los pasos y vuelve a intentarlo.';
+        result.className = 'result-msg show bad';
+      }
+    };
+
+    // --- ACTIVIDAD 6: Verdadero o falso ---
+    function setupTF() {
+      const grids = document.querySelectorAll('#tfQuiz .tf-grid');
+      grids.forEach(grid => {
+        const btns = grid.querySelectorAll('.tf-btn');
+        btns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const parent = this.closest('.tf-grid');
+            parent.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected-correct', 'selected-wrong'));
+            const isCorrect = this.dataset.val === parent.dataset.correct;
+            this.classList.add(isCorrect ? 'selected-correct' : 'selected-wrong');
+          });
+        });
+      });
+    }
+    setupTF();
+    window.checkTF = function() {
+      const grids = document.querySelectorAll('#tfQuiz .tf-grid');
+      let correct = 0;
+      grids.forEach(grid => {
+        const selected = grid.querySelector('.tf-btn.selected-correct, .tf-btn.selected-wrong');
+        if (selected && selected.dataset.val === grid.dataset.correct) correct++;
+      });
+      const result = document.getElementById('tfResult');
+      result.textContent = `Respondiste correctamente ${correct} de ${grids.length}.`;
+      result.className = 'result-msg show ' + (correct === grids.length ? 'ok' : 'bad');
+      if (correct === grids.length) {
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Verdadero o falso', `${correct}/${grids.length} correctas`);
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      }
+    };
+
+    // --- ACTIVIDAD 7: Múltiple con botones ---
+    document.querySelectorAll('#multiBtnQuiz .card-option').forEach(card => {
+      card.addEventListener('click', function() {
+        const parent = this.closest('.card-select-grid');
+        parent.querySelectorAll('.card-option').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    window.checkMultiBtn = function() {
+      const groups = document.querySelectorAll('#multiBtnQuiz .card-select-grid');
+      let correct = 0;
+      groups.forEach(group => {
+        const selected = group.querySelector('.card-option.selected');
+        if (selected && selected.dataset.val === group.dataset.correct) correct++;
+      });
+      const result = document.getElementById('multiBtnResult');
+      result.textContent = `Respondiste correctamente ${correct} de ${groups.length}.`;
+      result.className = 'result-msg show ' + (correct === groups.length ? 'ok' : 'bad');
+      if (correct === groups.length) {
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Selección múltiple con botones', `${correct}/${groups.length} correctas`);
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      }
+    };
+
+    // --- ACTIVIDAD 9: Ordenar oración ---
+    const sentenceSort = document.getElementById('sentenceSort');
+    let dragSentence = null;
+    if (sentenceSort) {
+      sentenceSort.addEventListener('dragstart', (e) => {
+        dragSentence = e.target;
+        e.dataTransfer.setData('text/plain', '');
+        e.target.classList.add('dragging');
+      });
+      sentenceSort.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+        dragSentence = null;
+      });
+      sentenceSort.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(sentenceSort, e.clientY);
+        if (afterElement == null) sentenceSort.appendChild(dragSentence);
+        else sentenceSort.insertBefore(dragSentence, afterElement);
+      });
+    }
+    window.checkSentence = function() {
+      const items = document.querySelectorAll('#sentenceSort .sort-item');
+      let orders = [];
+      items.forEach(item => orders.push(parseInt(item.dataset.order)));
+      const expected = [1,2,3,4,5];
+      let correct = true;
+      for (let i=0; i<expected.length; i++) {
+        if (orders[i] !== expected[i]) { correct = false; break; }
+      }
+      const result = document.getElementById('sentenceResult');
+      if (correct) {
+        result.textContent = '¡Orden correcto! La oración es: "Los colores organizan la información."';
+        result.className = 'result-msg show ok';
+        const name = getCurrentName();
+        if (name) recordEvidenceForName(name, 'Ordenar oración', '5/5 correctos');
+        else alert('Ingresa tu nombre en Resultados para guardar progreso.');
+      } else {
+        result.textContent = 'El orden no es correcto. Intenta de nuevo.';
+        result.className = 'result-msg show bad';
+      }
+    };
+
+    // --- EXAMEN ---
+    window.calificarExamen = function() {
+      const questions = document.querySelectorAll('.exam-q');
+      let correct = 0, total = 0;
+      questions.forEach(q => {
+        const type = q.dataset.type;
+        q.classList.remove('correct','incorrect');
+        if (type === 'single') {
+          total++;
+          const name = q.querySelector('input').name;
+          const selected = q.querySelector(`input[name="${name}"]:checked`);
+          if (selected && selected.value === q.dataset.correct) { q.classList.add('correct'); correct++; }
+          else q.classList.add('incorrect');
+        } else if (type === 'multi') {
+          total++;
+          const name = q.querySelector('input').name;
+          const checked = [...q.querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value).sort();
+          const expected = q.dataset.correct.split(',').sort();
+          const isCorrect = checked.length === expected.length && checked.every((v,i) => v === expected[i]);
+          if (isCorrect) { q.classList.add('correct'); correct++; } else q.classList.add('incorrect');
+        } else if (type === 'match') {
+          total++;
+          const selects = q.querySelectorAll('select');
+          let allCorrect = true;
+          selects.forEach(sel => { if (!sel.value) allCorrect = false; });
+          if (!allCorrect) { q.classList.add('incorrect'); return; }
+          const expectedPairs = q.dataset.correct.split(',');
+          const selectMap = {};
+          selects.forEach(sel => {
+            const name = sel.name;
+            const match = name.match(/q(\d+)-(\d+)/);
+            if (match) { const col = match[2]; selectMap[col] = sel.value; }
+          });
+          let allMatch = true;
+          expectedPairs.forEach(pair => {
+            const [col, val] = pair.split('-');
+            if (selectMap[col] !== val) allMatch = false;
+          });
+          if (allMatch) { q.classList.add('correct'); correct++; } else q.classList.add('incorrect');
+        }
+      });
+      const pct = Math.round((correct/total)*100);
+      let mensaje = pct >= 90 ? '¡Excelente dominio del tema!' : pct >= 70 ? 'Buen resultado, sigue reforzando los detalles.' : pct >= 50 ? 'Vas bien, pero conviene repasar la síntesis de nuevo.' : 'Te recomendamos regresar a la sección de Síntesis antes de continuar.';
+      const result = document.getElementById('examResult');
+      result.innerHTML = `<h3>${correct} / ${total} — ${pct}%</h3><p>${mensaje}</p>`;
+      result.classList.add('show');
+      result.scrollIntoView({behavior:'smooth', block:'center'});
+      const name = getCurrentName();
+      if (name) {
+        recordEvidenceForName(name, 'Cuestionario final', `${correct}/${total} (${pct}%)`);
+      } else {
+        alert('Ingresa tu nombre en Resultados para guardar el progreso del cuestionario.');
+      }
+    };
+
+    // --- RESULTADOS ---
+    function extraerPorcentaje(texto) {
+      const match = texto.match(/(\d+)\/(\d+)/);
+      if (match) {
+        const aciertos = parseInt(match[1]);
+        const total = parseInt(match[2]);
+        return Math.round((aciertos / total) * 100);
+      }
+      const matchPct = texto.match(/(\d+)%/);
+      if (matchPct) return parseInt(matchPct[1]);
+      return null;
+    }
+    function calcularPromedioGeneral(evidencias) {
+      const porcentajes = [];
+      const ultimos = {};
+      evidencias.forEach(item => {
+        const act = item.actividad;
+        if (!ultimos[act] || item.intento > ultimos[act].intento) ultimos[act] = item;
+      });
+      for (const act in ultimos) {
+        const pct = extraerPorcentaje(ultimos[act].resultado);
+        if (pct !== null) porcentajes.push(pct);
+      }
+      if (porcentajes.length === 0) return null;
+      const suma = porcentajes.reduce((a,b) => a + b, 0);
+      return Math.round(suma / porcentajes.length);
+    }
+    function renderResultados(name) {
+      const evidencias = getEvidenceForName(name);
+      document.getElementById('resultsStudentName').textContent = name;
+      const list = document.getElementById('resultsList');
+      const count = document.getElementById('resultsCount');
+      const promedio = calcularPromedioGeneral(evidencias);
+      count.textContent = promedio !== null ? ` · Promedio general: ${promedio}%` : ' · Aún sin actividades registradas';
+      if (evidencias.length === 0) {
+        list.innerHTML = '<div class="empty-state">No hay resultados para este nombre. Realiza actividades o el cuestionario para comenzar a registrar tu progreso.</div>';
+        return;
+      }
+      const grouped = {};
+      evidencias.forEach(item => {
+        if (!grouped[item.actividad]) grouped[item.actividad] = [];
+        grouped[item.actividad].push(item);
+      });
+      list.innerHTML = Object.entries(grouped).map(([actividad, intentos]) => `
+        <div class="activity-group">
+          <div class="activity-group-header">${actividad} <span>${intentos.length} intento${intentos.length > 1 ? 's' : ''}</span></div>
+          ${intentos.map(item => `
+            <div class="result-row">
+              <div class="r-detail">${item.resultado}</div>
+              <div class="r-meta">Intento #${item.intento} · ${item.fecha}</div>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+    window.showResultados = function() {
+      const nameInput = document.getElementById('studentName');
+      const name = nameInput.value.trim();
+      if (!name) { nameInput.style.borderColor = '#D32F2F'; nameInput.focus(); return; }
+      nameInput.style.borderColor = '';
+      localStorage.setItem(NAME_KEY, name);
+      document.getElementById('resultsView').style.display = 'block';
+      renderResultados(name);
+    };
+    function initResultados() {
+      const savedName = localStorage.getItem(NAME_KEY);
+      if (savedName) document.getElementById('studentName').value = savedName;
+    }
+    initResultados();
+
+  });
+</script>
+</body>
+</html>
