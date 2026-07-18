@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan de estudios · Pedagogía</title>
+  <link rel="icon" href="https://github.com/ICOMcoordinacion/pedagogiaICOM/raw/c6e2937d768a2ba422888f55374ee7c01f853eaa/Icom.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Estilos exclusivos de impresión/PDF: se aplican solo al imprimir -->
+  <link rel="stylesheet" href="print.css" media="print">
+</head>
+<body>
+<div class="shell">
+
+  <!-- SIDEBAR PRINCIPAL: Inicio + Cuatrimestres -->
+  <aside class="sidebar-principal">
+    <div class="sb-header">
+      <div class="sb-badge">Plan de estudios</div>
+      <div class="sb-title">Licenciatura en Pedagogía</div>
+      <div class="sb-subtitle">INSTITUTO COMERCIAL MÉXICO</div>
+    </div>
+    <nav class="sb-nav" id="navCuatrimestres"></nav>
+  </aside>
+
+  <!-- SIDEBAR SECUNDARIO: Materias del cuatrimestre activo -->
+  <aside class="sidebar-secundario hidden" id="sidebarSecundario">
+    <div class="sb-header">
+      <div class="sb-badge" id="secBadge">Materias</div>
+      <div class="sb-title" id="secTitle">Selecciona un cuatrimestre</div>
+      <div class="sb-subtitle" id="secSubtitle"></div>
+    </div>
+    <nav class="sb-nav" id="navMaterias">
+      <div class="placeholder-msg" style="padding:20px;font-size:13px;color:#aaa;">Selecciona un cuatrimestre<br>para ver sus materias</div>
+    </nav>
+  </aside>
+
+  <!-- PANEL PRINCIPAL -->
+  <main class="main" id="panelPrincipal">
+    <div class="placeholder-msg" style="margin-top:60px;">
+      <strong>Bienvenido al portal de asignaturas</strong><br>
+      Selecciona un cuatrimestre en el panel izquierdo y luego una materia.
+    </div>
+  </main>
+
+</div>
+
+<!-- Contenedor de impresión: oculto en pantalla, print.css lo muestra al imprimir -->
+<div id="printRoot" style="display:none;"></div>
+
+<script src="data.js"></script>
+<script src="pdf.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
